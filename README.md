@@ -67,10 +67,10 @@ pilotent le calcul du chiffre d'affaires et des jauges (barème dans
 
 - **Images d'événement** : `public/assets/evenements/`, aux noms référencés
   dans `content.json` (`n2-scoleurop.png`, etc.). Remplacer le fichier suffit.
-- **Logo** : le logo actuel (`src/components/Logo.jsx`) est un texte stylisé
-  provisoire en attendant le fichier définitif. Pour le remplacer par une
-  image : déposer le fichier dans `public/assets/logo/` puis remplacer le
-  contenu de `Logo.jsx` par une balise `<img>` pointant vers ce fichier.
+- **Logo** : `public/assets/logo/market-rush-logo.png` (PNG détouré, recadré
+  sur son contenu). Pour le remplacer, déposer le nouveau fichier au même
+  emplacement (même nom, ou mettre à jour le chemin dans
+  `src/components/Logo.jsx`).
 
 ## Comment jouer une séance
 

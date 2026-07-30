@@ -1,21 +1,15 @@
 .logo {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4em;
-  font-family: var(--font-title);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
+  display: block;
+  width: auto;
+  height: auto;
 }
 
-.logo--lg { font-size: clamp(2.5rem, 6vw, 5.5rem); }
-.logo--sm { font-size: var(--fs-h3); }
+.logo--lg {
+  max-width: min(90vw, 620px);
+  max-height: clamp(120px, 22vw, 220px);
+}
 
-.logo__market { color: var(--c-text); }
-
-.logo__rush {
-  background: linear-gradient(90deg, var(--c-lignea), var(--c-modulab));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.logo--sm {
+  max-width: 220px;
+  max-height: 48px;
 }
