@@ -1,0 +1,67 @@
+.conseq-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  border-top: 5px solid var(--company-color);
+}
+
+.conseq-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.conseq-card__name {
+  font-size: var(--fs-h3);
+  color: var(--company-color);
+}
+
+.verdict {
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.verdict__label {
+  font-size: var(--fs-small);
+  font-family: var(--font-body);
+  color: var(--c-text-muted);
+}
+
+.conseq-card__option {
+  font-family: var(--font-title);
+  font-weight: 500;
+  color: var(--c-text);
+  margin: 0;
+}
+
+.conseq-card__phrase {
+  color: var(--c-text-muted);
+  font-size: var(--fs-body-lg);
+  margin: 0;
+  flex: 1;
+}
+
+.conseq-card__deltas {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.conseq-card__delta {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.conseq-card__delta.is-up { color: var(--c-good); }
+.conseq-card__delta.is-down { color: var(--c-bad); }
+.conseq-card__delta.is-flat { color: var(--c-text-muted); }

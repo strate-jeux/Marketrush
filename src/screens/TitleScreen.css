@@ -1,0 +1,48 @@
+.title-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.title-screen__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.title-screen__baseline {
+  font-size: var(--fs-h3);
+  color: var(--c-text-muted);
+  margin: 0;
+}
+
+.title-screen__cta {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-body-lg);
+  background: var(--c-accent-timer);
+  color: #1a1200;
+  border: none;
+  border-radius: 999px;
+  padding: 1.1rem 2.6rem;
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+
+.title-screen__cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.title-screen__editeur {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

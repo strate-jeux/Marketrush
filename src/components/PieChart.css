@@ -1,0 +1,47 @@
+.piechart {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.piechart__slice {
+  stroke: var(--c-bg);
+  stroke-width: 2;
+  transition: d var(--transition);
+}
+
+.piechart__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 220px;
+}
+
+.piechart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-body-lg);
+}
+
+.piechart__swatch {
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.piechart__legend-label {
+  font-family: var(--font-title);
+  font-weight: 600;
+  flex: 1;
+}
+
+.piechart__legend-pct {
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+}

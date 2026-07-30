@@ -1,0 +1,69 @@
+.decision-screen__eyebrow {
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-text-muted);
+}
+
+.decision-screen__title {
+  font-size: var(--fs-hero);
+  max-width: 20ch;
+}
+
+.decision-screen__options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 900px;
+}
+
+.decision-screen__hint {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  font-style: italic;
+}
+
+.decision-screen__timer-row {
+  display: flex;
+  justify-content: center;
+}
+
+.decision-screen__saisie-grid {
+  display: flex;
+  gap: var(--space-md);
+  flex: 1;
+  align-items: stretch;
+}
+
+.decision-screen__validate {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.decision-screen__validate-btn {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  background: var(--c-good);
+  color: #05271a;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 1rem 2.2rem;
+  transition: filter var(--transition-fast), opacity var(--transition-fast);
+}
+
+.decision-screen__validate-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.decision-screen__validate-btn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.decision-screen__consequences-grid {
+  display: flex;
+  gap: var(--space-md);
+  flex: 1;
+  align-items: stretch;
+}

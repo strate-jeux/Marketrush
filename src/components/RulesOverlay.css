@@ -1,0 +1,47 @@
+.rules-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 13, 31, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: var(--space-lg);
+}
+
+.rules-overlay__panel {
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  max-width: 780px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.rules-overlay__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rules-overlay__head h2 {
+  font-size: var(--fs-h2);
+}
+
+.rules-overlay__close {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--c-text);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+
+.rules-overlay__close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}

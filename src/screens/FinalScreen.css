@@ -1,0 +1,98 @@
+.final-screen__podium {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.final-screen__row {
+  display: grid;
+  grid-template-columns: 3rem auto 1fr auto;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--c-panel);
+  border-left: 6px solid var(--company-color);
+  border-radius: var(--radius);
+  padding: var(--space-sm) var(--space-md);
+}
+
+.final-screen__pos {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  color: var(--c-text-muted);
+}
+
+.final-screen__name {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  color: var(--company-color);
+}
+
+.final-screen__detail {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.final-screen__score {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+}
+
+.final-screen__message {
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  font-size: var(--fs-body-lg);
+  color: var(--c-text);
+  max-width: 70ch;
+}
+
+.final-screen__actions {
+  margin-top: auto;
+}
+
+.final-screen__new-game {
+  font-family: var(--font-title);
+  font-weight: 600;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--c-text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.8rem;
+}
+
+.final-screen__new-game:hover {
+  color: var(--c-text);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.final-screen__confirm {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--c-text);
+}
+
+.final-screen__confirm-yes {
+  background: var(--c-bad);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-title);
+  font-weight: 600;
+}
+
+.final-screen__confirm-no {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--c-text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-body);
+}
