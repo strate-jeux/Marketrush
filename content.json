@@ -1,0 +1,1046 @@
+{
+  "meta": {
+    "jeu": "Market Rush",
+    "baseline": "La course à la part de marché",
+    "editeur": "Stratéjeux",
+    "source": "MarketRush_Dossier_v5.docx",
+    "version_donnees": "5.0"
+  },
+  "entreprises": [
+    {
+      "id": "MOBISCO",
+      "nom": "MOBISCO",
+      "couleur": "#2454FF"
+    },
+    {
+      "id": "LIGNEA",
+      "nom": "LIGNEA",
+      "couleur": "#FFA102"
+    },
+    {
+      "id": "INCLUSIA",
+      "nom": "INCLUSIA",
+      "couleur": "#E474B1"
+    },
+    {
+      "id": "MODULAB",
+      "nom": "MODULAB",
+      "couleur": "#F6664B"
+    }
+  ],
+  "reste_du_marche": {
+    "libelle": "Reste du marché",
+    "couleur": "#8C9BB5"
+  },
+  "parametres": {
+    "ca_depart_kEUR": 400,
+    "jauges_depart": 50,
+    "jauge_min": 0,
+    "jauge_max": 100,
+    "delta_jauge": 10,
+    "minuteur_strategique_sec": 600,
+    "minuteur_tactique_sec": 60
+  },
+  "bareme_ca": {
+    "1": {
+      "bon": 5,
+      "moyen": 0,
+      "mauvais": -5
+    },
+    "2": {
+      "bon": 12,
+      "moyen": 5,
+      "mauvais": -6
+    },
+    "3": {
+      "bon": 8,
+      "moyen": 3,
+      "mauvais": -8
+    },
+    "4": {
+      "bon": 5,
+      "moyen": 2,
+      "mauvais": -9
+    },
+    "5": {
+      "bon": 3,
+      "moyen": 1,
+      "mauvais": -10
+    }
+  },
+  "score_final": {
+    "formule": "50 % × indice de part de marché relative + 25 % × Santé financière + 25 % × Indicateur sociétal",
+    "part_relative": "CA de l'entreprise ÷ somme des CA des 4 entreprises × 100",
+    "indice": "part relative ÷ 25 × 50, plafonné à 100"
+  },
+  "manches": [
+    {
+      "numero": 1,
+      "annee": "N1",
+      "phase": "Lancement",
+      "marche_kEUR": 2000,
+      "evolution": null,
+      "accroche": "Votre startup vient de se lancer. Un plan national d'équipement ouvre le marché du mobilier scolaire : la demande est là, aucune position n'est encore acquise. Vous devez poser les fondations de votre entreprise.",
+      "evenement": null,
+      "decisions": [
+        "m1d1",
+        "m1d2",
+        "m1d3"
+      ]
+    },
+    {
+      "numero": 2,
+      "annee": "N2",
+      "phase": "Croissance",
+      "marche_kEUR": 2600,
+      "evolution": "+30 %",
+      "accroche": "Le marché s'emballe : les établissements s'équipent, les budgets sont ouverts. Toutes les startups ont trouvé leurs premiers clients. C'est l'année où les positions se prennent.",
+      "evenement": {
+        "titre": "Arrivée de SCOLEUROP",
+        "texte": "SCOLEUROP, groupe européen d'ameublement scolaire, s'implante en France. Il attaque à 71 € le poste élève, soit 25 % sous le prix moyen du marché, avec un délai de livraison de 6 semaines.",
+        "effet_mecanique": "Le marché passe à 2 600 K€, mais SCOLEUROP en capte une partie ; la part « reste du marché » remonte et toutes les parts des quatre entreprises se contractent.",
+        "image": "assets/evenements/n2-scoleurop.png"
+      },
+      "decisions": [
+        "m2d1",
+        "m2d2"
+      ]
+    },
+    {
+      "numero": 3,
+      "annee": "N3",
+      "phase": "Maturité 1",
+      "marche_kEUR": 3000,
+      "evolution": "+15 %",
+      "accroche": "Le marché ralentit et se structure. Les acteurs sont installés, la conquête facile est terminée. Il faut désormais consolider sa position sur son domaine d'activité.",
+      "evenement": {
+        "titre": "Gel des dotations publiques",
+        "texte": "L'État réduit les dotations aux collectivités territoriales. Communes et départements gèlent ou reportent leurs achats d'équipement scolaire. Les établissements privés, le supérieur et les budgets fléchés résistent mieux.",
+        "effet_mecanique": "La croissance du marché retombe à +15 % et la commande publique se contracte ; l'événement teste la dépendance de chacun aux budgets publics.",
+        "image": "assets/evenements/n3-gel-dotations.png"
+      },
+      "decisions": [
+        "m3d1",
+        "m3d2"
+      ]
+    },
+    {
+      "numero": 4,
+      "annee": "N4",
+      "phase": "Maturité 2",
+      "marche_kEUR": 3200,
+      "evolution": "+7 %",
+      "accroche": "La responsabilité environnementale s'installe dans les critères d'achat, et le législateur s'apprête à trancher. Chaque entreprise doit définir sa politique — avant d'y être contrainte.",
+      "evenement": {
+        "titre": "Réglementation économie circulaire",
+        "texte": "Entrée en vigueur de la réglementation sur l'économie circulaire : tout mobilier vendu dans le cadre d'un marché public devra intégrer au moins 30 % de matériaux recyclés ou biosourcés et être recyclable en fin de vie. Les fournisseurs non conformes sont exclus des appels d'offres. Premier effet : SCOLEUROP, dont les produits importés ne sont pas conformes, perd ses marchés en cours.",
+        "effet_mecanique": "SCOLEUROP perd ses marchés publics : des volumes se libèrent au profit des seules entreprises conformes.",
+        "image": "assets/evenements/n4-economie-circulaire.png"
+      },
+      "decisions": [
+        "m4d1",
+        "m4d2"
+      ]
+    },
+    {
+      "numero": 5,
+      "annee": "N5",
+      "phase": "Maturité 3",
+      "marche_kEUR": 3300,
+      "evolution": "+3 %",
+      "accroche": "Cinq ans après le lancement, le marché est mature et les positions établies. La réglementation a fait le tri. Il ne s'agit plus de conquérir, mais de décider ce que votre entreprise sera demain.",
+      "evenement": {
+        "titre": "SCOLEUROP se retire — et une copie apparaît",
+        "texte": "Exclu des marchés publics français faute de conformité, SCOLEUROP cherche à se relancer en s'adossant à un acteur local. Le groupe approche les quatre entreprises avec une double proposition : rachat complet à un prix attractif, ou partenariat industriel et commercial donnant accès à son réseau de distribution dans 8 pays. Autre signal : un fabricant italien commercialise une copie d'un modèle primé français.",
+        "effet_mecanique": "SCOLEUROP se retire progressivement du marché français : la part résiduelle se réduit et celles des quatre entreprises se regonflent.",
+        "image": "assets/evenements/n5-scoleurop-retrait.png"
+      },
+      "decisions": [
+        "m5d1",
+        "m5d2"
+      ]
+    }
+  ],
+  "decisions": {
+    "m1d1": {
+      "id": "m1d1",
+      "manche": 1,
+      "titre": "Positionnement de marque",
+      "notion": "segmentation, ciblage, positionnement",
+      "type": "strategique",
+      "jauge": "part_de_marche",
+      "options": {
+        "A": {
+          "label": "A. Volume et accessibilité prix",
+          "description": "Cibler les marchés publics de masse. Exige une structure de coûts basse et des volumes élevés. Marges unitaires faibles, sensibilité forte à la concurrence par les prix."
+        },
+        "B": {
+          "label": "B. Qualité et ergonomie",
+          "description": "Cibler les établissements privés et le supérieur. Exige des compétences de conception et une offre à valeur perçue élevée. Volumes plus faibles, marges élevées."
+        },
+        "C": {
+          "label": "C. Expertise spécialisée",
+          "description": "Cibler des besoins spécifiques (accessibilité, usages nouveaux). Exige une compétence rare et reconnue. Marché étroit, faible sensibilité au prix."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Prix le plus bas du marché, sur le segment le plus sensible au prix : les appels d'offres tombent."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Aucune compétence de conception en interne : la promesse de qualité est intenable."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Une gamme standard vendue comme une expertise : le discours ne convainc pas, mais ne coûte rien."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "165 € annoncés comme un prix accessible : offre éliminée d'emblée, marge sacrifiée pour rien."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Deux designers et 34,5 % de marge rendent la promesse crédible : le premium se vend."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "L'ergonomie peut passer pour une expertise, mais la légitimité manque face à un vrai spécialiste."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "195 € positionnés sur le prix : éliminée à chaque appel d'offres, expertise gâchée."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "La qualité est réelle, mais l'atout accessibilité reste invisible : ventes moyennes."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Segment sans concurrent et 41 % de notoriété prescripteurs : la position se prend immédiatement."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "240 € présentés comme accessibles : incohérence immédiate, aucun marché gagné."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Le privé et le supérieur pèsent 20 points sur l'innovation : le concept trouve ses premiers clients."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Se poser en spécialiste d'un usage encore confidentiel : marché trop étroit pour les charges."
+          }
+        }
+      }
+    },
+    "m1d2": {
+      "id": "m1d2",
+      "manche": 1,
+      "titre": "Outil de production",
+      "notion": "make or buy, capacité, coûts de structure",
+      "type": "strategique",
+      "jauge": "sante_financiere",
+      "options": {
+        "A": {
+          "label": "A. Sous-traiter",
+          "description": "Aucun investissement, capacité immédiate, coût unitaire plus élevé. Dépendance au partenaire industriel."
+        },
+        "B": {
+          "label": "B. Internaliser (atelier intégré)",
+          "description": "Investissement lourd, coût unitaire abaissé, délai de mise en route long. Exige une compétence d'industrialisation en interne."
+        },
+        "C": {
+          "label": "C. Solution intermédiaire",
+          "description": "Investissement modéré, gain unitaire partiel, mise en route intermédiaire. Exige un pilotage technique."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "8 000 postes disponibles sans un euro investi, pour un seuil à 5 625 : capacité largement suffisante."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "320 K€ pour 270 K€ mobilisables : investissement impossible à financer."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "110 K€ engagés pour 7 € de gain par poste, sans chef d'atelier pour piloter l'outil."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "3 000 postes disponibles pour 2 400 prévus et un seuil à 2 105 : rien à investir."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "280 K€ pour 240 K€ mobilisables : hors de portée."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "130 K€ pour une capacité déjà suffisante, sans aucune compétence d'industrialisation."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "Capacité de 2 200 engagée à 85 % pour un seuil à 2 015 : la production sature aussitôt."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "95 K€ finançables, capacité portée à 3 200 et seuil abaissé à 1 849 : la marge respire."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "13 € de marge perdus par poste et certification confiée à un tiers : conformité fragilisée."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Seuil à 2 292 pour une capacité de 1 800 : la rentabilité est structurellement hors d'atteinte."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "85 K€ mobilisables, mais 7 mois de mise en route sans chef d'atelier : la capacité arrive trop tard."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "20 K€ portent la capacité à 2 800, au-dessus du seuil de 2 538 : la rentabilité devient atteignable."
+          }
+        }
+      }
+    },
+    "m1d3": {
+      "id": "m1d3",
+      "manche": 1,
+      "titre": "Mode d'organisation",
+      "notion": "structure organisationnelle, adéquation ressources / stratégie",
+      "type": "strategique",
+      "jauge": "indicateur_societal",
+      "options": {
+        "A": {
+          "label": "A. Équipe polyvalente réduite",
+          "description": "Aucun coût supplémentaire, réactivité maximale. Risque de saturation si la charge est déjà élevée."
+        },
+        "B": {
+          "label": "B. Structuration par pôles",
+          "description": "Recrutement de profils opérationnels disponibles rapidement. Clarifie les responsabilités, alourdit la masse salariale."
+        },
+        "C": {
+          "label": "C. Recrutement de profils experts",
+          "description": "Coût salarial élevé, délais de recrutement longs. Pertinent uniquement si l'expertise constitue l'avantage concurrentiel."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "10 salariés sans encadrement sur une production en série : les process se dégradent."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Un commercial de plus en 2 mois : les ventes rejoignent le seuil, les rôles se clarifient."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "Un designer à 50 K€ pour vendre du mobilier standard : dépense sans usage."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "8 personnes polyvalentes et un climat à 8,4 : la réactivité fait l'avantage, rien à changer."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Des strates ajoutées à une équipe de 8 : coûts en hausse, agilité en baisse."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "52 K€ et 7 mois pour un designer, alors que deux sont déjà en poste."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Charge à 94 % et 40 demandes non traitées : l'équipe s'épuise, les clients attendent."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Réorganiser sans recruter ne libère aucune heure : la saturation demeure."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Les experts recrutés absorbent la demande de conseil : la charge redescend."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Aucun recrutement finançable : l'équipe reste soudée et polyvalente, la trésorerie tient."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Structurer 6 personnes : de la lourdeur administrative sans gain opérationnel."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "Recruter avec 95 K€ en caisse et 180 K€ de R&D à financer : asphyxie immédiate."
+          }
+        }
+      }
+    },
+    "m2d1": {
+      "id": "m2d1",
+      "manche": 2,
+      "titre": "Modalité de croissance",
+      "notion": "croissance interne, externe, conjointe",
+      "type": "strategique",
+      "jauge": "sante_financiere",
+      "options": {
+        "A": {
+          "label": "A. Croissance interne",
+          "description": "Investir ses propres ressources (commerciaux, capacité, équipement). Maîtrise totale, montée en puissance progressive, mobilise la trésorerie."
+        },
+        "B": {
+          "label": "B. Croissance externe",
+          "description": "Racheter un acteur existant. Effet immédiat sur la capacité et les compétences, investissement lourd, intégration à mener."
+        },
+        "C": {
+          "label": "C. Croissance conjointe",
+          "description": "S'appuyer sur un partenaire (distribution, licence, sous-traitance). Investissement faible, déploiement rapide, partage de la valeur et dépendance."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Capacité disponible à 8 000 : chaque commercial recruté se transforme en ventes."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "85 K€ pour une capacité dont l'entreprise dispose déjà : trésorerie immobilisée."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "8 % de commission cédés sur une marge de 20,5 % : la rentabilité s'effondre."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "Des commerciaux de plus, mais la capacité plafonne à 3 000 : les ventes butent."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "120 K€ finançables pour +1 500 postes et 4 artisans qualifiés : le plafond saute."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "10 % de commission versés à des prescripteurs pour une clientèle déjà acquise."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "95 K€ pour étendre l'atelier : la capacité suit la demande, la certification reste maîtrisée."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "3 menuisiers à former aux normes avec une équipe à 94 % : personne pour les encadrer."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "L'Europe avant d'avoir saturé la France : effort dispersé et 12 % de commission."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "90 K€/an de commerciaux alors que 2 900 postes attendent déjà un devis."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "105 K€ pour 95 K€ de trésorerie, sans emprunt : rachat impossible à financer."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "25 K€ et 9 % de redevance : le plafond de production disparaît sans mobiliser un euro."
+          }
+        }
+      }
+    },
+    "m2d2": {
+      "id": "m2d2",
+      "manche": 2,
+      "titre": "Réaction concurrentielle",
+      "notion": "stratégies génériques — coûts, différenciation, focalisation",
+      "type": "tactique",
+      "jauge": "part_de_marche",
+      "options": {
+        "A": {
+          "label": "A. S'aligner sur les prix",
+          "description": "Défendre ses volumes par le prix. N'est tenable que si la structure de coûts le permet."
+        },
+        "B": {
+          "label": "B. Renforcer la valeur perçue",
+          "description": "Justifier son écart de prix par la qualité, le service, l'image. Exige une valeur réellement démontrable."
+        },
+        "C": {
+          "label": "C. Se recentrer sur un segment protégé",
+          "description": "Se replier sur une clientèle peu sensible au prix. Renonce à une part du marché en échange d'une position défendable."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Le palier des 7 000 postes ramène le coût à 56 € : l'alignement à 71 € reste rentable."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Aucun argument hors prix sur des produits standards : les acheteurs partent chez SCOLEUROP."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Aucun segment protégé à rejoindre : un repli sans destination."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "165 € ramenés vers 71 € : marge détruite et image premium anéantie en une décision."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Ses clients pèsent 40 points sur la qualité contre 28 sur le prix : l'écart se justifie."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Se replier alors que sa clientèle n'est pas attaquée : des parts abandonnées sans raison."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Baisser un prix sur un segment attribué hors critère prix : marge perdue pour rien."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Communiquer sur la valeur là où la conformité suffisait : effort mal ciblé."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Les budgets fléchés échappent à la concurrence par les prix : la position est imprenable."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Aligner un produit à 240 € sur un concurrent à 71 € : marge détruite, concept dévalorisé."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Un produit sans équivalent se défend par la démonstration d'usage, pas par le prix."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Se recentrer davantage sur une base déjà étroite : croissance étouffée."
+          }
+        }
+      }
+    },
+    "m3d1": {
+      "id": "m3d1",
+      "manche": 3,
+      "titre": "Stratégie de domaine",
+      "notion": "stratégie business, portefeuille produits",
+      "type": "strategique",
+      "jauge": "indicateur_societal",
+      "options": {
+        "A": {
+          "label": "A. Rationaliser la gamme",
+          "description": "Concentrer les volumes sur les références les plus rentables. Simplifie la production et abaisse les coûts, réduit la couverture de l'offre."
+        },
+        "B": {
+          "label": "B. Enrichir l'offre",
+          "description": "Ajouter des références ou monter en gamme. Augmente le panier moyen et la valeur perçue, exige un budget de développement et des compétences produit."
+        },
+        "C": {
+          "label": "C. Étendre vers un segment voisin",
+          "description": "Adresser une clientèle proche avec l'offre existante ou légèrement adaptée. Élargit la base clients, disperse l'effort commercial."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Volumes concentrés sur le poste élève : le palier des 7 000 est franchi, les équipes retrouvent un cap."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Monter en gamme sans compétence de conception : 95 K€ dépensés pour un produit sans marché."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "La petite enfance accepterait ses prix, mais l'effort commercial se disperse."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Rationaliser une gamme de deux références : l'offre s'appauvrit, les designers se démobilisent."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "75 K€ pour des bureaux réglables à 62 € de marge : les prototypes existent déjà."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Élargir vers des segments que le gel budgétaire frappe : mauvais moment."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Réduire une gamme déjà étroite : l'offre ne couvre plus les besoins des prescripteurs."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "85 K€ pour une gamme standard à 17 € de marge, face à des coûts deux fois inférieurs."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "48 K€ pour la petite enfance et les dispositifs ULIS : l'expertise se transpose directement."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Rationaliser deux références : effort perdu au moment où la demande décolle."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "70 K€ pour une gamme sans capteurs : le concept se dilue et la marge baisse."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Le supérieur et la formation demandent déjà des devis : le segment voisin est ouvert."
+          }
+        }
+      }
+    },
+    "m3d2": {
+      "id": "m3d2",
+      "manche": 3,
+      "titre": "Adaptation conjoncturelle",
+      "notion": "élasticité-prix, valeur perçue, coût total de possession",
+      "type": "tactique",
+      "jauge": "sante_financiere",
+      "options": {
+        "A": {
+          "label": "A. Baisser ses prix",
+          "description": "Capter les budgets restants sur un marché contraint. Érode la marge, n'a de sens que si la clientèle est sensible au prix."
+        },
+        "B": {
+          "label": "B. Valoriser le coût total de possession",
+          "description": "Démontrer qu'un équipement durable coûte moins cher sur sa durée de vie. Exige une durabilité réellement supérieure et démontrable."
+        },
+        "C": {
+          "label": "C. Réorienter l'effort commercial",
+          "description": "Concentrer les moyens sur les clientèles épargnées par la contraction. Suppose d'avoir accès à ces clientèles."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Ses acheteurs arbitrent au prix : la baisse capte les derniers budgets ouverts."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Aucune durabilité supérieure à démontrer : l'argument tombe à plat, marchés perdus."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Le privé ne connaît pas la marque et ne cherche pas de produits standards."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Une marge de 57 € sacrifiée alors que sa clientèle n'est pas touchée par le gel."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Garantie 10 ans : l'argument du coût sur la durée rassure des acheteurs sous contrainte."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Réorienter vers des clients qu'elle possède déjà : effort sans effet."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Brader sur des budgets fléchés simplement reportés : marge perdue sans gagner un client."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Rassurer sur la durée : les commandes reviennent dès que les budgets se débloquent."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Chercher ailleurs alors que la demande n'est que différée."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Baisser le prix d'un concept innovant avant son décollage : valeur perçue détruite."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "L'argument du mobilier réutilisable est juste, mais ses clients sont peu touchés."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Universités et organismes de formation échappent au gel : l'effort y trouve sa cible."
+          }
+        }
+      }
+    },
+    "m4d1": {
+      "id": "m4d1",
+      "manche": 4,
+      "titre": "Politique RSE",
+      "notion": "parties prenantes, contrainte ou opportunité, greenwashing",
+      "type": "strategique",
+      "jauge": "indicateur_societal",
+      "options": {
+        "A": {
+          "label": "A. Écoconception complète",
+          "description": "Refondre l'offre autour de matériaux durables et d'une filière de fin de vie. Investissement lourd, avantage concurrentiel durable si la clientèle le valorise."
+        },
+        "B": {
+          "label": "B. Conformité minimale",
+          "description": "Se mettre en règle au coût le plus bas, sans en faire un argument. Préserve la structure de coûts, aucun bénéfice d'image."
+        },
+        "C": {
+          "label": "C. Certifier et valoriser l'existant",
+          "description": "Faire reconnaître et communiquer une démarche déjà en place. Coût faible, sans substance réelle le risque de greenwashing est immédiat."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "145 K€ d'écoconception sur une marge de 20,5 % : conforme, mais durablement affaibli."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "8 K€ pour être conforme : ses acheteurs exigent le seuil, pas l'exemplarité."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "6 % de matériaux recyclés présentés comme une démarche : ni conforme, ni crédible."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "65 K€ finançables et des designers déjà formés : la démarche devient un argument de vente."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Conforme, mais l'occasion de renforcer le positionnement premium est laissée passer."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "18 % annoncés comme exemplaires : accusation de greenwashing, image entamée."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "110 K€ pour construire ce que l'atelier fait déjà : trésorerie asphyxiée."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Rester discret alors que l'entreprise dépasse déjà le seuil : atout gâché."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "34 % de biosourcés certifiés pour 5 K€ : une démarche réelle, enfin visible."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "125 K€ et 18 mois de refonte : les devis en attente partent ailleurs."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "30 K€ pour adapter la structure : conforme sans immobiliser l'équipe ni la trésorerie."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "12 % de recyclés présentés comme un engagement : non conforme, crédibilité perdue."
+          }
+        }
+      }
+    },
+    "m4d2": {
+      "id": "m4d2",
+      "manche": 4,
+      "titre": "Réponse réglementaire",
+      "notion": "internalisation ou externalisation d'une mise en conformité",
+      "type": "tactique",
+      "jauge": "sante_financiere",
+      "options": {
+        "A": {
+          "label": "A. Se mettre en conformité en interne",
+          "description": "Mobiliser ses propres équipes. Démarche maîtrisée et crédible, exige la compétence et la disponibilité correspondantes."
+        },
+        "B": {
+          "label": "B. Reporter la mise en conformité",
+          "description": "Attendre les décrets d'application. Préserve la trésorerie à court terme, expose à l'exclusion des marchés publics."
+        },
+        "C": {
+          "label": "C. Externaliser la mise en conformité",
+          "description": "Confier l'adaptation à un partenaire ou un bureau d'études. Rapide et sans mobilisation interne, coût immédiat et dépendance technique."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Aucune compétence QSE et 6 mois pour recruter : la conformité arrive après l'échéance."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Exclusion des appels d'offres au moment précis où SCOLEUROP libère ses volumes."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "8 K€ clé en main chez le fournisseur : conforme à temps, marchés de SCOLEUROP récupérés."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Les designers mènent l'adaptation : conformité maîtrisée et cohérente avec la marque."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Ses universités clientes passent par les marchés publics : consultations perdues."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Externaliser une démarche qu'elle revendique : conforme, mais le discours perd en force."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "5 K€ d'audit suffisent : l'entreprise était déjà conforme, la preuve est établie."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Reporter une conformité déjà acquise : une exclusion absurde des marchés fléchés."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Payer un tiers pour certifier ce que l'atelier maîtrise : dépense inutile."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "L'équipe R&D quitte l'avant-vente pour la conformité : conforme, mais devis en attente."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Universités et organismes publics inaccessibles : le décollage commercial s'arrête net."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "30 K€ au bureau d'études : conforme sans retirer un seul jour d'avant-vente."
+          }
+        }
+      }
+    },
+    "m5d1": {
+      "id": "m5d1",
+      "manche": 5,
+      "titre": "Stratégie globale",
+      "notion": "périmètre d'activité, spécialisation ou diversification",
+      "type": "strategique",
+      "jauge": "part_de_marche",
+      "options": {
+        "A": {
+          "label": "A. Diversifier",
+          "description": "Ouvrir un nouveau domaine d'activité. Répartit le risque et ouvre un relais de croissance, disperse les ressources et exige de nouvelles compétences."
+        },
+        "B": {
+          "label": "B. Se spécialiser davantage",
+          "description": "Renforcer sa position sur son domaine actuel par l'excellence opérationnelle. Consolide les marges, expose à la dépendance à un seul marché."
+        },
+        "C": {
+          "label": "C. Protéger son domaine",
+          "description": "Ériger des barrières à l'entrée (dépôts, certifications, exclusivités). Sécurise l'avantage acquis, sans effet direct sur la croissance."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "moyen",
+            "phrase": "70 K€ vers le tertiaire sans compétence de conception : diversification fragile."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Fiabilité, délais et SAV : les communes renouvellent, la position se consolide."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "6 K€ de dépôts sur des produits standards : aucune protection réelle, argent perdu."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Partir vers le tertiaire pendant qu'un concurrent copie l'assise phare : avantage abandonné."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Consolider sans protéger : la copie italienne continue de grignoter le design."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "12 K€ de dépôts et 26 K€ d'exclusivité : la copie devient attaquable, l'avantage tient."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "60 K€ vers le tertiaire pendant que des généralistes attaquent la niche : cœur exposé."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Améliorer l'existant ne distingue plus rien face aux gammes pseudo-inclusives."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "16 K€ de référentiel et de conventions prescripteurs : les imitateurs sont disqualifiés."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "55 K€ pour un marché six fois plus grand, produit inchangé et brevets déjà acquis."
+          },
+          "B": {
+            "verdict": "mauvais",
+            "phrase": "Rester sur le seul scolaire quand le tertiaire vient à elle : relais de croissance perdu."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "22 K€ pour étendre des brevets déjà déposés : protection redondante."
+          }
+        }
+      }
+    },
+    "m5d2": {
+      "id": "m5d2",
+      "manche": 5,
+      "titre": "Modèle de pérennité",
+      "notion": "indépendance, alliance, croissance externe subie",
+      "type": "tactique",
+      "jauge": "indicateur_societal",
+      "options": {
+        "A": {
+          "label": "A. Accepter le rachat",
+          "description": "Sécuriser la valeur créée et intégrer un groupe. Perte de l'indépendance et du contrôle du projet."
+        },
+        "B": {
+          "label": "B. Négocier un partenariat",
+          "description": "Accéder aux moyens du groupe en restant maître de son entreprise. Partage de la valeur, dépendance partielle."
+        },
+        "C": {
+          "label": "C. Refuser et rester indépendant",
+          "description": "Conserver la maîtrise totale. Suppose d'avoir les moyens d'affronter seul la suite."
+        }
+      },
+      "resolution": {
+        "MOBISCO": {
+          "A": {
+            "verdict": "bon",
+            "phrase": "Volumes multipliés par cinq, site et emplois maintenus : l'échelle est la condition de survie."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "Un partenariat sans l'échelle : l'entreprise reste exposée aux géants qui reviennent."
+          },
+          "C": {
+            "verdict": "mauvais",
+            "phrase": "Seule sur l'entrée de gamme face à des groupes conformes : issue condamnée."
+          }
+        },
+        "LIGNEA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Les designers partent, la clientèle premium fuit : les deux actifs perdus d'un coup."
+          },
+          "B": {
+            "verdict": "moyen",
+            "phrase": "S'associer à un généraliste d'entrée de gamme : l'image se brouille."
+          },
+          "C": {
+            "verdict": "bon",
+            "phrase": "Une indépendance autofinancée par la marge : l'équipe reste, la clientèle aussi."
+          }
+        },
+        "INCLUSIA": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Les experts, qui font la légitimité, quittent l'entreprise : l'actif disparaît avec eux."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "20 K€ ouvrent 6 pays ; conception et certification restent à la maison."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "L'Europe reste fermée alors que la niche nationale est saturée : la croissance s'arrête."
+          }
+        },
+        "MODULAB": {
+          "A": {
+            "verdict": "mauvais",
+            "phrase": "Céder avant que le marché tertiaire ne soit valorisé : brevets et potentiel bradés."
+          },
+          "B": {
+            "verdict": "bon",
+            "phrase": "Le goulot de production disparaît sans céder une part du capital ni un brevet."
+          },
+          "C": {
+            "verdict": "moyen",
+            "phrase": "Indépendance préservée, mais des délais de 5 mois font fuir les clients."
+          }
+        }
+      }
+    }
+  }
+}
