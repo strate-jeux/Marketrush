@@ -1,0 +1,46 @@
+:root {
+  /* Couleurs entreprises (charte Market Rush) */
+  --c-mobisco: #2454FF;
+  --c-lignea: #FFA102;
+  --c-inclusia: #E474B1;
+  --c-modulab: #F6664B;
+  --c-reste: #8C9BB5;
+
+  /* Palette d'habillage */
+  --c-bg: #010D1F;
+  --c-panel: #04152C;
+  --c-panel-raised: #081d3a;
+  --c-text: #DFE7F2;
+  --c-text-muted: #97A6BF;
+  --c-accent-timer: #FFAB16;
+  --c-cream: #FFF8E7;
+  --c-good: #3FCF8E;
+  --c-medium: #FFAB16;
+  --c-bad: #FF5D5D;
+
+  /* Typographie */
+  --font-title: 'Fredoka', 'Baloo 2', sans-serif;
+  --font-body: 'Public Sans', sans-serif;
+
+  /* Échelle de texte — pensée pour être lue au fond de la salle */
+  --fs-hero: clamp(2.75rem, 5vw, 5rem);
+  --fs-h1: clamp(2.25rem, 3.6vw, 3.5rem);
+  --fs-h2: clamp(1.75rem, 2.6vw, 2.5rem);
+  --fs-h3: clamp(1.3rem, 1.8vw, 1.75rem);
+  --fs-body-lg: clamp(1.15rem, 1.4vw, 1.4rem);
+  --fs-body: clamp(1rem, 1.15vw, 1.15rem);
+  --fs-small: clamp(0.85rem, 1vw, 0.95rem);
+
+  /* Espacement */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.75rem;
+  --space-lg: 3rem;
+  --space-xl: 5rem;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+
+  --transition-fast: 150ms ease;
+  --transition: 300ms ease;
+}

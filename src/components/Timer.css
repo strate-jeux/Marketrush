@@ -1,0 +1,52 @@
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 999px;
+  background: var(--c-panel-raised);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timer__display {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  font-variant-numeric: tabular-nums;
+  min-width: 3ch;
+  color: var(--c-text);
+}
+
+.timer--urgent .timer__display {
+  color: var(--c-accent-timer);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.timer--done .timer__display {
+  color: var(--c-bad);
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.timer__controls {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.timer__btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--c-text);
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-size: var(--fs-small);
+  transition: background var(--transition-fast);
+}
+
+.timer__btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}

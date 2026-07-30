@@ -1,0 +1,80 @@
+.suivi-screen__top {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.suivi-screen__ranking {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 260px;
+}
+
+.suivi-screen__ranking li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.6rem 1rem;
+  background: var(--c-panel);
+  border-radius: var(--radius-sm);
+  border-left: 4px solid var(--company-color);
+}
+
+.suivi-screen__rank-pos {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--c-text-muted);
+  width: 1.5em;
+}
+
+.suivi-screen__rank-name {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--company-color);
+  flex: 1;
+}
+
+.suivi-screen__rank-score {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.suivi-screen__cards {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.suivi-modal {
+  position: fixed;
+  inset: 0;
+  background: var(--c-bg);
+  z-index: 90;
+  overflow-y: auto;
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.suivi-modal__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-xl);
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: var(--c-text);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.1rem;
+}
+
+.suivi-modal__close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}

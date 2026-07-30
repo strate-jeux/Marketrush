@@ -1,0 +1,15 @@
+.logo {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.logo--lg {
+  max-width: min(90vw, 620px);
+  max-height: clamp(120px, 22vw, 220px);
+}
+
+.logo--sm {
+  max-width: 220px;
+  max-height: 48px;
+}

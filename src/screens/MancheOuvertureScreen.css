@@ -1,0 +1,38 @@
+.manche-ouverture {
+  justify-content: center;
+}
+
+.manche-ouverture__eyebrow {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  color: var(--c-accent-timer);
+}
+
+.manche-ouverture__accroche {
+  font-size: var(--fs-h2);
+  font-family: var(--font-title);
+  font-weight: 500;
+  max-width: 22ch;
+  line-height: 1.3;
+  color: var(--c-text);
+}
+
+.manche-ouverture__marche {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.manche-ouverture__marche-value {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  color: var(--c-cream);
+}
+
+.manche-ouverture__marche-label {
+  font-size: var(--fs-body-lg);
+  color: var(--c-text-muted);
+}

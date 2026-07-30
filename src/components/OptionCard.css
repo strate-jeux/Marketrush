@@ -1,0 +1,43 @@
+.option-card {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+  padding: var(--space-md);
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  border-left: 6px solid var(--letter-color);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.option-card.is-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.option-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.option-card__letter {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  color: var(--letter-color);
+  min-width: 1.2em;
+}
+
+.option-card__label {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  margin: 0 0 0.4rem;
+  color: var(--c-text);
+}
+
+.option-card__desc {
+  margin: 0;
+  font-size: var(--fs-body-lg);
+  color: var(--c-text-muted);
+}

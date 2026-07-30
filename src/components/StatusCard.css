@@ -1,0 +1,46 @@
+.status-card {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  border-top: 5px solid var(--company-color);
+}
+
+.status-card__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.status-card__rank {
+  font-family: var(--font-title);
+  font-weight: 700;
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.status-card__name {
+  font-size: var(--fs-h3);
+  color: var(--company-color);
+}
+
+.status-card__score {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: var(--space-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+}
+
+.status-card__score strong {
+  font-family: var(--font-title);
+  font-size: var(--fs-h3);
+  color: var(--c-text);
+}
