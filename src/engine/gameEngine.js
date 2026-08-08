@@ -136,7 +136,7 @@ export function ranking(content, companies) {
 
 /** Construit la séquence linéaire complète des écrans à partir du contenu. */
 export function buildScreenSequence(content) {
-  const seq = [{ type: 'titre' }, { type: 'regles' }]
+  const seq = [{ type: 'titre' }, { type: 'scenario' }, { type: 'comment-jouer' }]
 
   content.manches.forEach((manche, mIdx) => {
     seq.push({ type: 'manche-ouverture', manche: manche.numero })

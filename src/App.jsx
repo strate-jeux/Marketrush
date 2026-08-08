@@ -5,13 +5,15 @@ import {
   decisionOrder,
   computeState,
 } from './engine/gameEngine'
+import { computeFinances } from './engine/financeEngine'
 import { saveGame, loadGame, resetGame } from './engine/persistence'
 
 import GameChrome from './components/GameChrome'
 import RulesOverlay from './components/RulesOverlay'
 
 import TitleScreen from './screens/TitleScreen'
-import RulesScreen from './screens/RulesScreen'
+import ScenarioScreen from './screens/ScenarioScreen'
+import CommentJouerScreen from './screens/CommentJouerScreen'
 import MancheOuvertureScreen from './screens/MancheOuvertureScreen'
 import DecisionPresentationScreen from './screens/DecisionPresentationScreen'
 import DecisionReflexionScreen from './screens/DecisionReflexionScreen'
@@ -57,6 +59,7 @@ export default function App() {
   }, [history, screenIndex, loaded])
 
   const { companies, resultsByDecision } = useMemo(() => computeState(content, history), [history])
+  const finances = useMemo(() => computeFinances(content, history), [history])
 
   const screen = sequence[screenIndex]
 
@@ -136,6 +139,7 @@ export default function App() {
         <SuiviScreen
           isModal
           companies={companies}
+          finances={finances}
           manche={currentManche}
           onClose={() => setShowSuivi(false)}
         />
@@ -148,8 +152,11 @@ export default function App() {
       case 'titre':
         return <TitleScreen onStart={goNext} />
 
-      case 'regles':
-        return <RulesScreen onPrev={goPrev} onNext={goNext} />
+      case 'scenario':
+        return <ScenarioScreen onPrev={goPrev} onNext={goNext} />
+
+      case 'comment-jouer':
+        return <CommentJouerScreen onPrev={goPrev} onNext={goNext} />
 
       case 'manche-ouverture':
         return <MancheOuvertureScreen manche={manchesByNum[screen.manche]} onPrev={goPrev} onNext={goNext} />
@@ -208,6 +215,7 @@ export default function App() {
         return (
           <SuiviScreen
             companies={companies}
+            finances={finances}
             manche={manchesByNum[screen.manche]}
             onPrev={goPrev}
             onNext={goNext}

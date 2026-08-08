@@ -1,3 +1,4 @@
+import { formatPct1 } from '../engine/format'
 import './PieChart.css'
 
 function polarPoint(cx, cy, r, angleDeg) {
@@ -40,7 +41,7 @@ export default function PieChart({ slices, size = 280 }) {
           <li key={s.id} className="piechart__legend-item">
             <span className="piechart__swatch" style={{ background: s.couleur }} />
             <span className="piechart__legend-label">{s.label}</span>
-            <span className="piechart__legend-pct">{s.pct.toFixed(1)} %</span>
+            <span className="piechart__legend-pct">{formatPct1(s.pct)}</span>
           </li>
         ))}
       </ul>
