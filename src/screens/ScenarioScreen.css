@@ -1,0 +1,53 @@
+.scenario-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.scenario-screen__zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  max-width: 46rem;
+}
+
+.scenario-screen__title {
+  font-size: var(--fs-h1);
+}
+
+.scenario-screen__lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.scenario-screen__line {
+  margin: 0;
+  font-size: var(--fs-body-lg);
+  color: var(--c-text-muted);
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.scenario-screen__line.is-hidden {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.scenario-screen__line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scenario-screen__line--accent.is-visible {
+  font-size: var(--fs-h2);
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--c-accent-timer);
+}
+
+.scenario-screen__hint {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  font-style: italic;
+}

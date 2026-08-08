@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ranking } from '../engine/gameEngine'
+import { formatPct1 } from '../engine/format'
 import content from '../data/content.json'
 import './FinalScreen.css'
 
@@ -16,7 +17,7 @@ export default function FinalScreen({ companies, onNewGame }) {
             <span className="final-screen__pos">{i + 1}</span>
             <span className="final-screen__name">{c.nom}</span>
             <span className="final-screen__detail">
-              Part relative {c.partRelative.toFixed(1)} % → indice {c.indice.toFixed(0)} · Santé
+              Part relative {formatPct1(c.partRelative)} → indice {Math.round(c.indice)} · Santé
               financière {Math.round(c.jauges.sante_financiere)} · Indicateur sociétal{' '}
               {Math.round(c.jauges.indicateur_societal)}
             </span>

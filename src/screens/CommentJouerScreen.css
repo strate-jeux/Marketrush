@@ -1,0 +1,44 @@
+.comment-jouer-screen {
+  gap: var(--space-lg);
+}
+
+.comment-jouer-screen__compteurs {
+  display: flex;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.comment-jouer-screen__compteur {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.comment-jouer-screen__compteur-valeur {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  color: var(--c-accent-timer);
+}
+
+.comment-jouer-screen__compteur-label {
+  color: var(--c-text-muted);
+  font-size: var(--fs-body);
+}
+
+.comment-jouer-screen__prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 50rem;
+  font-size: var(--fs-body-lg);
+}
+
+.comment-jouer-screen__prose p {
+  margin: 0;
+}
+
+.comment-jouer-screen__prose strong {
+  color: var(--c-text);
+  font-family: var(--font-title);
+}

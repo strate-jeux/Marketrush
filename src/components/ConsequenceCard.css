@@ -33,6 +33,18 @@
   color: var(--c-text-muted);
 }
 
+.conseq-card__ca-hero {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-hero);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.conseq-card--bon .conseq-card__ca-hero { color: var(--c-good); }
+.conseq-card--moyen .conseq-card__ca-hero { color: var(--c-medium); }
+.conseq-card--mauvais .conseq-card__ca-hero { color: var(--c-bad); }
+
 .conseq-card__option {
   font-family: var(--font-title);
   font-weight: 500;

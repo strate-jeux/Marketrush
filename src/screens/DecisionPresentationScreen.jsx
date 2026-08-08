@@ -6,9 +6,9 @@ import './DecisionScreens.css'
 const LETTERS = ['A', 'B', 'C']
 
 export default function DecisionPresentationScreen({ decision, onPrev, onNext }) {
-  const [revealed, setRevealed] = useState(1)
+  const [revealed, setRevealed] = useState(0)
 
-  useEffect(() => setRevealed(1), [decision.id])
+  useEffect(() => setRevealed(0), [decision.id])
 
   const allRevealed = revealed >= LETTERS.length
 
@@ -17,17 +17,20 @@ export default function DecisionPresentationScreen({ decision, onPrev, onNext })
   }
 
   return (
-    <div className="screen decision-screen" onClick={handleReveal}>
-      <div className="decision-screen__eyebrow">Décision · {decision.notion}</div>
-      <h1 className="decision-screen__title">{decision.titre}</h1>
-      <div className="decision-screen__options">
-        {LETTERS.map((letter, i) => (
-          <OptionCard key={letter} letter={letter} option={decision.options[letter]} visible={i < revealed} />
-        ))}
+    <div className="screen decision-screen">
+      <div className="decision-screen__reveal-zone" onClick={handleReveal}>
+        <div className="decision-screen__eyebrow">Décision · {decision.notion}</div>
+        <h1 className="decision-screen__title">{decision.titre}</h1>
+        {decision.question && <p className="decision-screen__question">{decision.question}</p>}
+        <div className="decision-screen__options">
+          {LETTERS.map((letter, i) => (
+            <OptionCard key={letter} letter={letter} index={i} option={decision.options[letter]} visible={i < revealed} />
+          ))}
+        </div>
+        {!allRevealed && (
+          <p className="decision-screen__hint">Cliquez sur l'écran pour révéler la suite des options</p>
+        )}
       </div>
-      {!allRevealed && (
-        <p className="decision-screen__hint">Cliquez sur l'écran pour révéler la suite des options</p>
-      )}
       <Navigation onPrev={onPrev} onNext={onNext} />
     </div>
   )

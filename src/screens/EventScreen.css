@@ -6,8 +6,14 @@
 }
 
 .event-screen__title {
-  font-size: var(--fs-h1);
+  font-size: var(--fs-hero);
   max-width: 24ch;
+}
+
+.event-screen__sous-titre {
+  margin: -0.6rem 0 0;
+  font-size: var(--fs-body);
+  color: var(--c-text-muted);
 }
 
 .event-screen__body {
@@ -18,14 +24,14 @@
 }
 
 .event-screen__image {
-  max-width: 42%;
-  max-height: 340px;
+  max-width: 46%;
+  max-height: 40vh;
   object-fit: contain;
   border-radius: var(--radius);
 }
 
 .event-screen__texte {
-  font-size: var(--fs-body-lg);
+  font-size: clamp(1.5rem, 1.82vw, 1.82rem);
   color: var(--c-text);
   line-height: 1.5;
 }
@@ -48,8 +54,10 @@
 
 .event-screen__effet p {
   margin: 0.4rem 0 0;
-  font-size: var(--fs-body-lg);
-  color: var(--c-text);
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  color: var(--c-accent-timer);
 }
 
 @media (max-width: 900px) {

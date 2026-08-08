@@ -6,18 +6,21 @@
   background: var(--c-panel);
   border-radius: var(--radius);
   border-left: 6px solid var(--letter-color);
-  transition: opacity var(--transition), transform var(--transition);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: opacity 350ms ease, transform 350ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 .option-card.is-hidden {
   opacity: 0;
-  transform: translateY(10px);
+  transform: rotateY(-90deg);
   pointer-events: none;
 }
 
 .option-card.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: rotateY(0deg);
 }
 
 .option-card__letter {
