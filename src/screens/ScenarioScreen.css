@@ -1,0 +1,26 @@
+.screen.scenario-screen {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-lg);
+}
+
+.scenario-screen__titre {
+  font-size: var(--fs-hero);
+}
+
+/* Visuel dominant : il occupe la bande centrale. */
+.scenario-screen__visuel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+}
+
+.scenario-screen__texte {
+  margin: 0;
+  max-width: 30ch;
+  font-size: var(--fs-h3);
+  color: var(--c-text-muted);
+  line-height: 1.45;
+}

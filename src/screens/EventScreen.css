@@ -1,3 +1,12 @@
+/* Tout l'écran doit tenir sans défilement : il est projeté (même correctif que
+   l'écran de suivi — global.css est émis après les feuilles de composants,
+   `.screen` l'emporterait sinon et le bandeau bas sortirait du cadre). */
+.screen.event-screen {
+  flex: none;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .event-screen__eyebrow {
   font-size: var(--fs-small);
   text-transform: uppercase;
@@ -5,43 +14,60 @@
   color: var(--c-accent-timer);
 }
 
+/* Titre agrandi : c'est lui qui porte l'écran, lu depuis le fond de la salle. */
 .event-screen__title {
-  font-size: var(--fs-h1);
-  max-width: 24ch;
+  font-size: clamp(2.25rem, 4.4vw, 4rem);
+  max-width: 22ch;
 }
 
 /* v7.1 sort le nom propre du titre pour le porter en sous-titre. */
 .event-screen__sous-titre {
   margin: 0;
-  font-size: var(--fs-body);
+  font-size: var(--fs-h3);
   color: var(--c-text-muted);
 }
 
 .event-screen__body {
   display: flex;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
   align-items: center;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
+/* Visuel agrandi : il occupe la moitié de la bande centrale, sans jamais
+   pousser le reste hors de l'écran. */
 .event-screen__image {
-  max-width: 42%;
-  max-height: 340px;
+  width: 50%;
+  max-width: 560px;
+  max-height: 100%;
   object-fit: contain;
   border-radius: var(--radius);
+  flex-shrink: 1;
 }
 
 .event-screen__texte {
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-h3);
   color: var(--c-text);
-  line-height: 1.5;
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+}
+
+.event-screen__texte p {
+  margin: 0 0 0.5em;
+}
+
+.event-screen__texte p:last-child {
+  margin-bottom: 0;
 }
 
 .event-screen__effet {
+  flex: 0 0 auto;
   background: var(--c-panel);
   border-left: 6px solid var(--c-accent-timer);
   border-radius: var(--radius);
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
 }
 
 .event-screen__effet-label {
@@ -54,7 +80,7 @@
 }
 
 .event-screen__effet p {
-  margin: 0.4rem 0 0;
+  margin: 0.3rem 0 0;
   font-size: var(--fs-body-lg);
   color: var(--c-text);
 }

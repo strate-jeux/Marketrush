@@ -142,7 +142,9 @@ export function ranking(dataset, companies) {
 
 /** Construit la séquence linéaire complète des écrans à partir du contenu. */
 export function buildScreenSequence(dataset) {
-  const seq = [{ type: 'titre' }, { type: 'regles' }]
+  // L'ouverture est narrative : le rappel des règles reste accessible en cours
+  // de partie par la superposition, il n'occupe plus les premiers écrans.
+  const seq = [{ type: 'titre' }, { type: 'scenario' }, { type: 'comment-jouer' }]
 
   dataset.raw.manches.forEach((manche) => {
     seq.push({ type: 'manche-ouverture', manche: manche.manche })

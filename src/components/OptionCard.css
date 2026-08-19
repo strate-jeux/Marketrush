@@ -37,7 +37,14 @@
 }
 
 .option-card__desc {
-  margin: 0;
   font-size: var(--fs-body-lg);
   color: var(--c-text-muted);
+}
+
+.option-card__desc p {
+  margin: 0 0 0.4em;
+}
+
+.option-card__desc p:last-child {
+  margin-bottom: 0;
 }

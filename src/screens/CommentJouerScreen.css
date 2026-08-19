@@ -1,0 +1,73 @@
+.screen.comment-jouer {
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+.comment-jouer__etapes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm) var(--space-md);
+}
+
+.comment-jouer__etape {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--c-panel);
+  border-radius: var(--radius-sm);
+}
+
+.comment-jouer__num {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  color: var(--c-accent-timer);
+  min-width: 1.2em;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.comment-jouer__libelle {
+  font-size: var(--fs-body-lg);
+}
+
+.comment-jouer__indicateurs {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.comment-jouer__indicateur {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--c-panel-raised);
+  border-radius: var(--radius-sm);
+  border-left: 5px solid var(--c-cream);
+}
+
+.comment-jouer__indicateur--score {
+  border-left-color: var(--c-accent-timer);
+}
+
+.comment-jouer__cle {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-h3);
+}
+
+.comment-jouer__detail {
+  color: var(--c-text-muted);
+  font-size: var(--fs-body);
+}
+
+@media (max-width: 1100px) {
+  .comment-jouer__etapes { grid-template-columns: repeat(2, 1fr); }
+}

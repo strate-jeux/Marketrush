@@ -1,4 +1,5 @@
 import Navigation from '../components/Navigation'
+import TexteRevele from '../components/TexteRevele'
 import { formatKEUR } from '../engine/format.js'
 import './MancheOuvertureScreen.css'
 
@@ -13,7 +14,7 @@ export default function MancheOuvertureScreen({ manche, marche, onPrev, onNext }
       <div className="manche-ouverture__eyebrow">
         {marche.libelle} · {manche.manche}
       </div>
-      <p className="manche-ouverture__accroche">{manche.accroche}</p>
+      <TexteRevele texte={manche.accroche} cle={manche.manche} className="manche-ouverture__accroche" />
       <div className="manche-ouverture__marche">
         <span className="manche-ouverture__marche-value">{formatKEUR(marche.marche_k_eur)}</span>
         <span className="manche-ouverture__marche-label">

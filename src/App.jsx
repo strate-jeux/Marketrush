@@ -11,7 +11,8 @@ import GameChrome from './components/GameChrome'
 import RulesOverlay from './components/RulesOverlay'
 
 import TitleScreen from './screens/TitleScreen'
-import RulesScreen from './screens/RulesScreen'
+import ScenarioScreen from './screens/ScenarioScreen'
+import CommentJouerScreen from './screens/CommentJouerScreen'
 import MancheOuvertureScreen from './screens/MancheOuvertureScreen'
 import DecisionPresentationScreen from './screens/DecisionPresentationScreen'
 import DecisionReflexionScreen from './screens/DecisionReflexionScreen'
@@ -150,8 +151,11 @@ export default function App() {
       case 'titre':
         return <TitleScreen onStart={goNext} />
 
-      case 'regles':
-        return <RulesScreen onPrev={goPrev} onNext={goNext} />
+      case 'scenario':
+        return <ScenarioScreen onPrev={goPrev} onNext={goNext} />
+
+      case 'comment-jouer':
+        return <CommentJouerScreen onPrev={goPrev} onNext={goNext} />
 
       case 'manche-ouverture':
         return (

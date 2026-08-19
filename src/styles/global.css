@@ -71,6 +71,14 @@ a {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* TexteRevele : indice de révélation séquentielle, partagé par les écrans narratifs. */
+.texte-revele__indice {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  font-style: italic;
+  cursor: pointer;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

@@ -26,6 +26,24 @@
 .decision-screen__timer-row {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.decision-screen__lancer {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: var(--fs-body-lg);
+  background: var(--c-accent-timer);
+  color: #1a1200;
+  border: none;
+  border-radius: 999px;
+  padding: 0.9rem 2rem;
+  transition: filter var(--transition-fast);
+}
+
+.decision-screen__lancer:hover {
+  filter: brightness(1.08);
 }
 
 .decision-screen__saisie-grid {

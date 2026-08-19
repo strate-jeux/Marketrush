@@ -1,4 +1,5 @@
 import Navigation from '../components/Navigation'
+import TexteRevele from '../components/TexteRevele'
 import { EVENEMENT_IMAGES } from '../data/index.js'
 import './EventScreen.css'
 
@@ -16,7 +17,7 @@ export default function EventScreen({ manche, onPrev, onNext }) {
         {image && (
           <img className="event-screen__image" src={`${import.meta.env.BASE_URL}${image}`} alt={evt.titre} />
         )}
-        <p className="event-screen__texte">{evt.texte}</p>
+        <TexteRevele texte={evt.texte} cle={manche.manche} className="event-screen__texte" />
       </div>
       <div className="event-screen__effet">
         <span className="event-screen__effet-label">Effet mécanique</span>
