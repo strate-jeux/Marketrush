@@ -1,16 +1,16 @@
 import ChoiceButtons from '../components/ChoiceButtons'
-import content from '../data/content.json'
+import dataset from '../data'
 import './DecisionScreens.css'
 
 export default function DecisionSaisieScreen({ decision, choices, onChoiceChange, onPrev, onValidate }) {
-  const complete = content.entreprises.every((e) => choices[e.id])
+  const complete = dataset.entreprises.every((e) => choices[e.id])
 
   return (
     <div className="screen decision-screen">
       <div className="decision-screen__eyebrow">Saisie des réponses</div>
       <h1 className="decision-screen__title">{decision.titre}</h1>
       <div className="decision-screen__saisie-grid">
-        {content.entreprises.map((company) => (
+        {dataset.entreprises.map((company) => (
           <ChoiceButtons
             key={company.id}
             company={company}

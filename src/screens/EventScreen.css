@@ -6,12 +6,13 @@
 }
 
 .event-screen__title {
-  font-size: var(--fs-hero);
+  font-size: var(--fs-h1);
   max-width: 24ch;
 }
 
+/* v7.1 sort le nom propre du titre pour le porter en sous-titre. */
 .event-screen__sous-titre {
-  margin: -0.6rem 0 0;
+  margin: 0;
   font-size: var(--fs-body);
   color: var(--c-text-muted);
 }
@@ -24,14 +25,14 @@
 }
 
 .event-screen__image {
-  max-width: 46%;
-  max-height: 40vh;
+  max-width: 42%;
+  max-height: 340px;
   object-fit: contain;
   border-radius: var(--radius);
 }
 
 .event-screen__texte {
-  font-size: clamp(1.5rem, 1.82vw, 1.82rem);
+  font-size: var(--fs-body-lg);
   color: var(--c-text);
   line-height: 1.5;
 }
@@ -54,10 +55,8 @@
 
 .event-screen__effet p {
   margin: 0.4rem 0 0;
-  font-family: var(--font-title);
-  font-weight: 600;
-  font-size: var(--fs-h3);
-  color: var(--c-accent-timer);
+  font-size: var(--fs-body-lg);
+  color: var(--c-text);
 }
 
 @media (max-width: 900px) {

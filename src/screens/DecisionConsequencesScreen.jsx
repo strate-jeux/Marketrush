@@ -1,6 +1,6 @@
 import ConsequenceCard from '../components/ConsequenceCard'
 import Navigation from '../components/Navigation'
-import content from '../data/content.json'
+import dataset from '../data'
 import './DecisionScreens.css'
 
 const JAUGE_LABELS = {
@@ -15,9 +15,9 @@ export default function DecisionConsequencesScreen({ decision, results, onPrev, 
       <div className="decision-screen__eyebrow">Conséquences</div>
       <h1 className="decision-screen__title">{decision.titre}</h1>
       <div className="decision-screen__consequences-grid">
-        {content.entreprises.map((company) => {
+        {dataset.entreprises.map((company) => {
           const result = results[company.id]
-          const optionLabel = decision.options[result.choice].label
+          const optionLabel = decision.options.find((o) => o.lettre === result.choice)?.libelle
           return (
             <ConsequenceCard
               key={company.id}

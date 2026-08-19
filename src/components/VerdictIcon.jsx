@@ -1,5 +1,5 @@
-const ICONS = { bon: '✔', moyen: '–', mauvais: '✘' }
-const LABELS = { bon: 'BON CHOIX', moyen: 'CHOIX MOYEN', mauvais: 'MAUVAIS CHOIX' }
+const ICONS = { bon: '✅', moyen: '⚠️', mauvais: '❌' }
+const LABELS = { bon: 'Bonne décision', moyen: 'Décision moyenne', mauvais: 'Mauvaise décision' }
 
 export default function VerdictIcon({ verdict, withLabel = false }) {
   return (

@@ -4,16 +4,16 @@ import './ChoiceButtons.css'
 export default function ChoiceButtons({ company, options, selected, onSelect }) {
   return (
     <div className="choice-card" style={{ '--company-color': company.couleur }}>
-      <h3 className="choice-card__name">{company.nom}</h3>
+      <h3 className="choice-card__name">{company.id}</h3>
       <div className="choice-card__options">
-        {Object.keys(options).map((letter) => (
+        {options.map((option) => (
           <button
-            key={letter}
+            key={option.lettre}
             type="button"
-            className={`choice-card__btn ${selected === letter ? 'is-selected' : ''}`}
-            onClick={() => onSelect(letter)}
+            className={`choice-card__btn ${selected === option.lettre ? 'is-selected' : ''}`}
+            onClick={() => onSelect(option.lettre)}
           >
-            {letter}
+            {option.lettre}
           </button>
         ))}
       </div>

@@ -54,7 +54,7 @@ Le reste de ce document répond à la commande telle que formulée : v7.1
 
 | Clé v7.1 | Type | Équivalent v5.0 | Statut |
 |---|---|---|---|
-| `meta` | objet | `meta` | conservée, champs enrichis (`hierarchie_sources`, `avertissement`, `note_version`) |
+| `meta` | objet | `meta` | conservée, champs enrichis (`hierarchie_sources`, `avertissement`, `note_version`) — mais **`baseline` et `editeur` sont supprimés** (voir § 2.10) |
 | `entreprises` | **objet** (clé = id) | `entreprises` : **tableau** | conservée, **type de collection changé** (tableau → objet) + champs financiers ajoutés |
 | `marche` | objet (ca départ + 5 manches + coefficients) | éclaté entre `parametres.ca_depart_kEUR`, `bareme_ca`, et `manches[].marche_kEUR`/`evolution` | **nouvelle forme** — regroupe 3 clés v5 distinctes |
 | `jauges` | objet (départ/pas/bornes + décisions par jauge) | éclaté entre `parametres.jauges_depart/jauge_min/jauge_max/delta_jauge` et le champ `jauge` de chaque décision v5 | **nouvelle forme** — relation décision→jauge inversée (portée par `jauges`, plus par `decisions[i].jauge`... voir note) |
@@ -221,6 +221,20 @@ Absent en v5.0 (rien à mapper). Face à l'état **intermédiaire actuel de `mai
 | `deja_paye` (7 couples `si (décision,option) alors (décision,option) gratuite`, par entreprise, id de décision en slug) | `investissements[entreprise][decision_id][option] = [{cle, montant}]` + dédoublonnage par `cle` partagée entre deux entrées | **mécanisme entièrement différent.** L'ancien schéma dédoublonne par une clé de coût partagée ; le nouveau dédoublonne par une paire de couples décision/option explicites. Le moteur financier actuel (`src/engine/financeEngine.js`) devra être réécrit sur cette nouvelle logique, pas juste re-branché. |
 | `modulations_marge` (`declencheur: [decision, option]`, `a_partir_de: "N3"`, `effet: "taux_marge = 0.190"` en **chaîne à interpréter**) | `modulations_marge` (`si: {decision, option}`, `a_partir_de: 3` **entier**, `taux`/`delta` **déjà en champs numériques séparés**) | Même intention, **format d'« effet » très différent** : v7.1 encode l'opération dans une chaîne (`"taux_marge = 0.190"`, `"taux_marge += 0.025"`, `"redevance = 0.09 * max(0, CA - 432)"`) qu'il faudra soit parser, soit — plus sûr — remapper en amont vers des champs structurés (`type: fixe/delta`, `valeur`) pendant la migration des données plutôt qu'au moment du calcul. |
 | redevance MODULAB | portée par un `modulations_marge` avec `effet: "redevance = ..."` | l'ancien schéma avait un bloc `redevance` séparé et dédié ; v7.1 la traite comme une modulation de marge parmi d'autres, à isoler par code plutôt que par clé JSON |
+
+### 2.10 `meta.baseline` et `meta.editeur` — supprimés
+
+*Écart relevé pendant le Lot 1, absent de la première rédaction de ce document.*
+
+| v5.0 | v7.1 | Statut |
+|---|---|---|
+| `meta.baseline` (« La course à la part de marché ») | — | **supprimée** |
+| `meta.editeur` (« Stratéjeux ») | — | **supprimée** |
+
+`TitleScreen.jsx` les consommait. Traités comme `reste_du_marche` (§ 3.7) : constante
+`IDENTITE` dans `src/data/index.js`, puisqu'il s'agit de signature de marque et non de
+donnée de jeu. Ne pas confondre avec le champ `baseline` **par entreprise** de v7.1
+(« Le volume et le prix », …), qui est une nouveauté sans rapport.
 
 ### 2.9 `recette`
 
