@@ -13,6 +13,9 @@ export default function StatusCard({ company, partDeMarche, sante, societal, sco
   const tresorerie = situation ? situation.tresorerie : company.tresorerie
   const autonomie = situation ? situation.autonomieMois : (company.tresorerie / company.charges_fixes) * 12
   const negative = tresorerie < 0
+  // Trésorerie dans le rouge : il ne reste aucun mois devant soi. « −33 mois »
+  // ne se dit pas à voix haute, on affiche 0. Le moteur, lui, garde la formule.
+  const autonomieAffichee = Math.max(0, autonomie)
   // R4 puis R5 : on nomme la ligne réellement mobilisée.
   const ligneMobilisee = !negative ? null : (situation && situation.decouvert > 0 ? 'découvert' : 'emprunt')
 
@@ -41,7 +44,7 @@ export default function StatusCard({ company, partDeMarche, sante, societal, sco
         </div>
         <div className={`status-card__ligne ${negative ? 'is-negative' : ''}`}>
           <span className="status-card__cle">Autonomie</span>
-          <span className="status-card__valeur">{formatMois(autonomie)}</span>
+          <span className="status-card__valeur">{formatMois(autonomieAffichee)}</span>
         </div>
       </div>
 
