@@ -7,12 +7,12 @@
   min-height: 0;
 }
 
-/* Visuel dominant de l'écran de suivi : il vise 40 % de la hauteur et cède
+/* Visuel dominant de l'écran de suivi : il vise 30 % de la hauteur et cède
    quand la place manque, plutôt que de pousser les cartes hors de l'écran. */
 .piechart__svg {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 40vh;
+  max-height: 30vh;
   width: auto;
   aspect-ratio: 1;
 }

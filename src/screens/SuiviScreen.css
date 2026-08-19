@@ -16,18 +16,8 @@
   font-size: var(--fs-h2);
 }
 
-/* Sur cet écran, chaque pixel rendu par le bandeau bas revient au camembert. */
 .suivi-screen .nav-bar {
-  padding-top: var(--space-xs);
   flex: 0 0 auto;
-}
-
-.suivi-screen .gauge {
-  gap: 0.2rem;
-}
-
-.suivi-screen .gauge__track {
-  height: 10px;
 }
 
 /* Le camembert est seul sur la bande haute : c'est le visuel dominant.
