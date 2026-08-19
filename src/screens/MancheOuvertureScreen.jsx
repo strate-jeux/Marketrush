@@ -1,4 +1,5 @@
 import Navigation from '../components/Navigation'
+import { formatKEUR } from '../engine/format.js'
 import './MancheOuvertureScreen.css'
 
 export default function MancheOuvertureScreen({ manche, marche, onPrev, onNext }) {
@@ -14,9 +15,7 @@ export default function MancheOuvertureScreen({ manche, marche, onPrev, onNext }
       </div>
       <p className="manche-ouverture__accroche">{manche.accroche}</p>
       <div className="manche-ouverture__marche">
-        <span className="manche-ouverture__marche-value">
-          {marche.marche_k_eur.toLocaleString('fr-FR')} K€
-        </span>
+        <span className="manche-ouverture__marche-value">{formatKEUR(marche.marche_k_eur)}</span>
         <span className="manche-ouverture__marche-label">
           marché adressable{evolutionPct ? ` · ${evolutionPct}` : ''}
         </span>

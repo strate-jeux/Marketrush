@@ -3,8 +3,8 @@
   min-width: 220px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-md);
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
   background: var(--c-panel);
   border-radius: var(--radius);
   border-top: 5px solid var(--company-color);
@@ -26,6 +26,46 @@
 .status-card__name {
   font-size: var(--fs-h3);
   color: var(--company-color);
+}
+
+.status-card__finances {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.status-card__ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.status-card__cle {
+  color: var(--c-text-muted);
+  font-size: var(--fs-small);
+  flex-shrink: 0;
+}
+
+.status-card__valeur {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--c-text);
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Trésorerie négative : le chiffre suffit, pas d'icône d'alerte. */
+.status-card__ligne.is-negative .status-card__valeur,
+.status-card__ligne.is-negative .status-card__mention {
+  color: var(--c-bad);
+}
+
+.status-card__mention {
+  font-weight: 400;
+  font-size: var(--fs-small);
 }
 
 .status-card__score {

@@ -4,6 +4,7 @@ import {
   buildScreenSequence,
   computeState,
 } from './engine/gameEngine'
+import { computeFinances } from './engine/financeEngine'
 import { saveGame, loadGame, resetGame } from './engine/persistence'
 
 import GameChrome from './components/GameChrome'
@@ -55,6 +56,7 @@ export default function App() {
   }, [history, screenIndex, loaded])
 
   const { companies, resultsByDecision } = useMemo(() => computeState(dataset, history), [history])
+  const finances = useMemo(() => computeFinances(dataset, history), [history])
 
   const screen = sequence[screenIndex]
 
@@ -134,6 +136,7 @@ export default function App() {
         <SuiviScreen
           isModal
           companies={companies}
+          finances={finances}
           manche={currentManche}
           marcheKEUR={dataset.marcheByManche[currentManche.manche].marche_k_eur}
           onClose={() => setShowSuivi(false)}
@@ -211,6 +214,7 @@ export default function App() {
         return (
           <SuiviScreen
             companies={companies}
+            finances={finances}
             manche={dataset.manchesByKey[screen.manche]}
             marcheKEUR={dataset.marcheByManche[screen.manche].marche_k_eur}
             onPrev={goPrev}

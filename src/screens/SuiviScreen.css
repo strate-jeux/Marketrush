@@ -1,53 +1,53 @@
+/* Tout l'écran de suivi doit tenir sans défilement : il est projeté.
+   Mise en page plus dense que le gabarit `.screen` par défaut. */
+/* `global.css` est émis après les feuilles de composants : à spécificité égale
+   `.screen` l'emporterait. On double la classe pour reprendre la main. */
+.screen.suivi-screen {
+  /* `flex: none` neutralise le `flex: 1` de `.screen`, sans quoi la hauteur
+     serait dictée par le contenu et la barre de navigation sortirait du cadre. */
+  flex: none;
+  height: 100vh;
+  padding: var(--space-md) var(--space-lg);
+  gap: var(--space-sm);
+  overflow: hidden;
+}
+
+.suivi-screen > h1 {
+  font-size: var(--fs-h2);
+}
+
+/* Sur cet écran, chaque pixel rendu par le bandeau bas revient au camembert. */
+.suivi-screen .nav-bar {
+  padding-top: var(--space-xs);
+  flex: 0 0 auto;
+}
+
+.suivi-screen .gauge {
+  gap: 0.2rem;
+}
+
+.suivi-screen .gauge__track {
+  height: 10px;
+}
+
+/* Le camembert est seul sur la bande haute : c'est le visuel dominant.
+   Cette bande absorbe la place restante une fois les cartes servies. */
 .suivi-screen__top {
   display: flex;
-  gap: var(--space-xl);
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.suivi-screen__ranking {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  min-width: 260px;
-}
-
-.suivi-screen__ranking li {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0.6rem 1rem;
-  background: var(--c-panel);
-  border-radius: var(--radius-sm);
-  border-left: 4px solid var(--company-color);
-}
-
-.suivi-screen__rank-pos {
-  font-family: var(--font-title);
-  font-weight: 700;
-  color: var(--c-text-muted);
-  width: 1.5em;
-}
-
-.suivi-screen__rank-name {
-  font-family: var(--font-title);
-  font-weight: 600;
-  color: var(--company-color);
-  flex: 1;
-}
-
-.suivi-screen__rank-score {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .suivi-screen__cards {
   display: flex;
   gap: var(--space-md);
-  flex-wrap: wrap;
+  align-items: stretch;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .suivi-screen__cards { flex-wrap: wrap; }
 }
 
 .suivi-modal {
