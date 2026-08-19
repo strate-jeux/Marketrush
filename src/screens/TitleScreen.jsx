@@ -1,5 +1,5 @@
 import Logo from '../components/Logo'
-import { IDENTITE } from '../data'
+import { IDENTITE } from '../data/index.js'
 import './TitleScreen.css'
 
 export default function TitleScreen({ onStart }) {

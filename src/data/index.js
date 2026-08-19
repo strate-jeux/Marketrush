@@ -6,7 +6,7 @@
 // (narratif dans `manches`, chiffré dans `marche.manches`) — puis de porter les
 // deux constantes d'habillage que le fichier v7.1 ne fournit pas (arbitrage Lot 0).
 
-import raw from './marketrush_data_v7.json'
+import raw from './marketrush_data_v7.json' with { type: 'json' }
 
 /* ------------------------------------------------------------------ *
  * Constantes d'habillage absentes du fichier de données v7.1

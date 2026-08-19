@@ -1,5 +1,5 @@
 import Navigation from '../components/Navigation'
-import { EVENEMENT_IMAGES } from '../data'
+import { EVENEMENT_IMAGES } from '../data/index.js'
 import './EventScreen.css'
 
 export default function EventScreen({ manche, onPrev, onNext }) {

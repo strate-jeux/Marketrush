@@ -1,5 +1,5 @@
 import ChoiceButtons from '../components/ChoiceButtons'
-import dataset from '../data'
+import dataset from '../data/index.js'
 import './DecisionScreens.css'
 
 export default function DecisionSaisieScreen({ decision, choices, onChoiceChange, onPrev, onValidate }) {

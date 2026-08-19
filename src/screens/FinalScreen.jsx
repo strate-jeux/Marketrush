@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ranking } from '../engine/gameEngine'
-import dataset from '../data'
+import dataset from '../data/index.js'
 import './FinalScreen.css'
 
 export default function FinalScreen({ companies, onNewGame }) {

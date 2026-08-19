@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import dataset from './data'
+import dataset from './data/index.js'
 import {
   buildScreenSequence,
   computeState,

@@ -2,7 +2,7 @@ import PieChart from '../components/PieChart'
 import StatusCard from '../components/StatusCard'
 import Navigation from '../components/Navigation'
 import { computeCamembert, ranking } from '../engine/gameEngine'
-import dataset from '../data'
+import dataset from '../data/index.js'
 import './SuiviScreen.css'
 
 export default function SuiviScreen({ companies, manche, marcheKEUR, onPrev, onNext, isModal = false, onClose }) {

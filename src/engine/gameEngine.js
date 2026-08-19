@@ -5,7 +5,7 @@
 // dépendent d'aucun fichier de données particulier, ce qui les rend testables
 // hors navigateur.
 
-import { RESTE_DU_MARCHE } from '../data'
+import { RESTE_DU_MARCHE } from '../data/index.js'
 
 export function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value))

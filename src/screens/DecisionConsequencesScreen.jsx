@@ -1,6 +1,6 @@
 import ConsequenceCard from '../components/ConsequenceCard'
 import Navigation from '../components/Navigation'
-import dataset from '../data'
+import dataset from '../data/index.js'
 import './DecisionScreens.css'
 
 const JAUGE_LABELS = {
