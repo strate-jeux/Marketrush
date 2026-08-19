@@ -1,0 +1,2077 @@
+{
+  "meta": {
+    "jeu": "Market Rush",
+    "version_donnees": "7.1",
+    "date": "2026-08",
+    "source": "MarketRush_Document_de_travail_v7.docx",
+    "hierarchie_sources": [
+      "1. Fiches services imprimées (24 pages) — référence absolue, figée",
+      "2. Document de travail v7.0 — source unique de vérité",
+      "3. content.json du diaporama — à patcher depuis ce fichier"
+    ],
+    "avertissement": "Contient les grilles de correction. Ne jamais exposer verdict/cout avant résolution.",
+    "note_version": "v7.1 : libellés d'options et 132 phrases de résolution réécrits sur un modèle unique (sujet-verbe-complément, vocabulaire BTS, adresse directe à l'équipe). Corrections de fond : INCLUSIA / Mode d'organisation / B et INCLUSIA / Politique RSE / C."
+  },
+  "entreprises": {
+    "MOBISCO": {
+      "couleur": "#2454FF",
+      "baseline": "Le volume et le prix",
+      "tresorerie": 150,
+      "capacite_emprunt": 120,
+      "charges_fixes": 90,
+      "aides": 0,
+      "ressources_mobilisables": 270,
+      "taux_marge_depart": 0.205,
+      "autonomie_lancement_mois": 20.0,
+      "note_aides": null
+    },
+    "LIGNEA": {
+      "couleur": "#FFA102",
+      "baseline": "La qualité et l'ergonomie",
+      "tresorerie": 90,
+      "capacite_emprunt": 150,
+      "charges_fixes": 120,
+      "aides": 0,
+      "ressources_mobilisables": 240,
+      "taux_marge_depart": 0.345,
+      "autonomie_lancement_mois": 9.0,
+      "note_aides": null
+    },
+    "INCLUSIA": {
+      "couleur": "#E474B1",
+      "baseline": "L'accessibilité et l'inclusion",
+      "tresorerie": 160,
+      "capacite_emprunt": 60,
+      "charges_fixes": 135,
+      "aides": 0,
+      "ressources_mobilisables": 220,
+      "taux_marge_depart": 0.344,
+      "autonomie_lancement_mois": 14.2,
+      "note_aides": null
+    },
+    "MODULAB": {
+      "couleur": "#F6664B",
+      "baseline": "L'innovation et la modularité",
+      "tresorerie": 95,
+      "capacite_emprunt": 0,
+      "charges_fixes": 165,
+      "aides": 70,
+      "ressources_mobilisables": 95,
+      "taux_marge_depart": 0.3,
+      "autonomie_lancement_mois": 6.9,
+      "note_aides": "Les aides tombent en fin d'exercice, après les investissements de l'année."
+    }
+  },
+  "marche": {
+    "ca_depart_par_entreprise_k_eur": 400,
+    "manches": [
+      {
+        "manche": "N1",
+        "libelle": "Lancement",
+        "marche_k_eur": 2000,
+        "evolution": null,
+        "coef_ca": {
+          "bon": 0.05,
+          "moyen": 0.0,
+          "mauvais": -0.05
+        }
+      },
+      {
+        "manche": "N2",
+        "libelle": "Croissance",
+        "marche_k_eur": 2600,
+        "evolution": 0.3,
+        "coef_ca": {
+          "bon": 0.12,
+          "moyen": 0.05,
+          "mauvais": -0.06
+        }
+      },
+      {
+        "manche": "N3",
+        "libelle": "Maturité 1",
+        "marche_k_eur": 3000,
+        "evolution": 0.15,
+        "coef_ca": {
+          "bon": 0.08,
+          "moyen": 0.03,
+          "mauvais": -0.08
+        }
+      },
+      {
+        "manche": "N4",
+        "libelle": "Maturité 2",
+        "marche_k_eur": 3200,
+        "evolution": 0.07,
+        "coef_ca": {
+          "bon": 0.05,
+          "moyen": 0.02,
+          "mauvais": -0.09
+        }
+      },
+      {
+        "manche": "N5",
+        "libelle": "Maturité 3",
+        "marche_k_eur": 3300,
+        "evolution": 0.03,
+        "coef_ca": {
+          "bon": 0.03,
+          "moyen": 0.01,
+          "mauvais": -0.1
+        }
+      }
+    ],
+    "regle": "Les coefficients s'appliquent au CA courant et se composent, ils ne s'additionnent pas."
+  },
+  "jauges": {
+    "depart": 50,
+    "pas": 10,
+    "bornes": [
+      0,
+      100
+    ],
+    "amplitude_atteignable": [
+      10,
+      90
+    ],
+    "sante_financiere": [
+      "outil_production",
+      "modalite_croissance",
+      "adaptation_conjoncturelle",
+      "reponse_reglementaire"
+    ],
+    "indicateur_societal": [
+      "mode_organisation",
+      "strategie_domaine",
+      "politique_rse",
+      "modele_perennite"
+    ],
+    "sans_jauge": [
+      "positionnement_marque",
+      "reaction_concurrentielle",
+      "strategie_globale"
+    ]
+  },
+  "score": {
+    "formule": "score = 0.50 * indice_part_relative + 0.25 * sante_financiere + 0.25 * indicateur_societal",
+    "part_relative": "CA de l'entreprise / somme des CA des 4 entreprises * 100",
+    "indice_part_relative": "part_relative / 25 * 50, plafonné à 100",
+    "invariant": "Si les quatre équipes jouent le chemin optimal, chacune finit à 70,0 / 100 exactement.",
+    "trésorerie_dans_le_score": false
+  },
+  "moteur_financier": {
+    "equations": {
+      "resultat": "CA * taux_de_marge + aides - charges_fixes - frais_financiers",
+      "tresorerie_fin": "tresorerie_debut + resultat - investissements_de_la_manche",
+      "autonomie_mois": "tresorerie / charges_fixes_annuelles * 12"
+    },
+    "regles": [
+      {
+        "id": "R1",
+        "enonce": "Seul le bon choix encaisse le bénéfice. Un choix moyen ou mauvais paie l'investissement sans obtenir le gain de marge, de capacité ou de part."
+      },
+      {
+        "id": "R2",
+        "enonce": "Un même investissement n'est décaissé qu'une fois (voir deja_paye)."
+      },
+      {
+        "id": "R3",
+        "enonce": "Un recrutement est proraté sur l'année d'embauche : coût annuel * (12 - délai) / 12. Les années suivantes, il est absorbé dans le coût de revient.",
+        "note": "Les montants de la grille des coûts sont déjà donnés prorata inclus."
+      },
+      {
+        "id": "R4",
+        "enonce": "Une trésorerie négative tire d'abord sur la capacité d'emprunt, à 4 % d'intérêt annuel."
+      },
+      {
+        "id": "R5",
+        "enonce": "Au-delà de la capacité d'emprunt, l'entreprise passe en découvert à 8 %."
+      },
+      {
+        "id": "R6",
+        "enonce": "Le découvert est plafonné à 50 % du chiffre d'affaires de l'exercice."
+      },
+      {
+        "id": "R7",
+        "enonce": "Aucune option n'est jamais bloquée, quelle que soit la trésorerie. L'équipe voit les conséquences, elle n'est jamais empêchée."
+      }
+    ],
+    "constantes": {
+      "taux_emprunt": 0.04,
+      "taux_decouvert": 0.08,
+      "plafond_decouvert_pct_ca": 0.5
+    },
+    "deja_paye": [
+      {
+        "entreprise": "INCLUSIA",
+        "si": [
+          "outil_production",
+          "B"
+        ],
+        "alors_gratuit": [
+          "modalite_croissance",
+          "A"
+        ],
+        "objet": "extension de l'atelier (95 K€)"
+      },
+      {
+        "entreprise": "INCLUSIA",
+        "si": [
+          "politique_rse",
+          "C"
+        ],
+        "alors_gratuit": [
+          "reponse_reglementaire",
+          "A"
+        ],
+        "objet": "audit et certification (5 K€), inclus dans l'option Certifier et valoriser"
+      },
+      {
+        "entreprise": "MOBISCO",
+        "si": [
+          "politique_rse",
+          "B"
+        ],
+        "alors_gratuit": [
+          "reponse_reglementaire",
+          "C"
+        ],
+        "objet": "commande de matériaux conformes (8 K€)"
+      },
+      {
+        "entreprise": "LIGNEA",
+        "si": [
+          "politique_rse",
+          "B"
+        ],
+        "alors_gratuit": [
+          "reponse_reglementaire",
+          "C"
+        ],
+        "objet": "commande de matériaux conformes (14 K€)"
+      },
+      {
+        "entreprise": "MODULAB",
+        "si": [
+          "politique_rse",
+          "B"
+        ],
+        "alors_gratuit": [
+          "reponse_reglementaire",
+          "C"
+        ],
+        "objet": "commande de matériaux conformes (30 K€)"
+      },
+      {
+        "entreprise": "LIGNEA",
+        "si": [
+          "strategie_domaine",
+          "C"
+        ],
+        "alors_gratuit": [
+          "strategie_globale",
+          "A"
+        ],
+        "objet": "adaptation au tertiaire (45 K€)"
+      },
+      {
+        "entreprise": "MODULAB",
+        "si": [
+          "modalite_croissance",
+          "C"
+        ],
+        "alors_gratuit": [
+          "modele_perennite",
+          "B"
+        ],
+        "objet": "accord industriel (25 K€)"
+      }
+    ],
+    "modulations_marge": [
+      {
+        "entreprise": "MOBISCO",
+        "declencheur": [
+          "adaptation_conjoncturelle",
+          "A"
+        ],
+        "a_partir_de": "N3",
+        "effet": "taux_marge = 0.190",
+        "commentaire": "20,5 % -> 19,0 % (baisse des prix)"
+      },
+      {
+        "entreprise": "LIGNEA",
+        "declencheur": [
+          "strategie_domaine",
+          "B"
+        ],
+        "a_partir_de": "N3",
+        "effet": "taux_marge = 0.355",
+        "commentaire": "34,5 % -> 35,5 %"
+      },
+      {
+        "entreprise": "LIGNEA",
+        "declencheur": [
+          "politique_rse",
+          "A"
+        ],
+        "a_partir_de": "N4",
+        "effet": "taux_marge += 0.025"
+      },
+      {
+        "entreprise": "LIGNEA",
+        "declencheur": [
+          "strategie_globale",
+          "!=C"
+        ],
+        "a_partir_de": "N5",
+        "effet": "taux_marge -= 0.040",
+        "commentaire": "design non protégé, N5 uniquement"
+      },
+      {
+        "entreprise": "INCLUSIA",
+        "declencheur": [
+          "outil_production",
+          "B"
+        ],
+        "a_partir_de": "N2",
+        "effet": "taux_marge = 0.348",
+        "commentaire": "34,4 % -> 34,8 %"
+      },
+      {
+        "entreprise": "MODULAB",
+        "declencheur": [
+          "outil_production",
+          "C"
+        ],
+        "a_partir_de": "N1",
+        "effet": "taux_marge = 0.271",
+        "commentaire": "30,0 % -> 27,1 % (sous-traitance structure)"
+      },
+      {
+        "entreprise": "MODULAB",
+        "declencheur": [
+          "modalite_croissance",
+          "C"
+        ],
+        "a_partir_de": "N2",
+        "effet": "redevance = 0.09 * max(0, CA - 432)",
+        "commentaire": "9 % du CA au-delà de 432 K€"
+      },
+      {
+        "entreprise": "MODULAB",
+        "declencheur": [
+          "strategie_globale",
+          "A"
+        ],
+        "a_partir_de": "N5",
+        "effet": "taux_marge += 0.050",
+        "commentaire": "tertiaire, N5 uniquement"
+      }
+    ],
+    "note_R1": "Les modulations de marge favorables ne s'appliquent que si l'option est un bon choix (R1). L'investissement, lui, est toujours décaissé."
+  },
+  "decisions": [
+    {
+      "id": "positionnement_marque",
+      "manche": "N1",
+      "titre": "Positionnement de marque",
+      "type": "stratégique",
+      "notion": "Segmentation, ciblage, positionnement",
+      "jauge": "part_de_marche",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Viser le volume avec des prix accessibles",
+          "description": "Cibler les marchés publics de masse. Il faut des coûts bas et de gros volumes. La marge par bureau est faible et la concurrence par les prix est rude."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Viser la qualité et l'ergonomie",
+          "description": "Cibler les établissements privés et le supérieur. Il faut savoir concevoir et proposer une vraie valeur. Les volumes sont plus faibles, les marges plus élevées."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Viser un besoin spécialisé",
+          "description": "Cibler un besoin particulier, comme l'accessibilité ou un usage nouveau. Il faut une compétence rare et reconnue. Le marché est étroit, mais il regarde peu le prix."
+        }
+      ]
+    },
+    {
+      "id": "outil_production",
+      "manche": "N1",
+      "titre": "Outil de production",
+      "type": "stratégique",
+      "notion": "Make or buy, capacité, coûts de structure",
+      "jauge": "sante_financiere",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Confier toute la production à un sous-traitant",
+          "description": "Ne rien investir et obtenir la capacité tout de suite. Le coût par bureau reste élevé et l'entreprise dépend de son partenaire industriel."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Investir dans son propre atelier",
+          "description": "Créer un atelier ou agrandir celui qui existe. Le coût par bureau baisse, mais l'investissement est lourd et la mise en route prend du temps."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Produire une partie et sous-traiter le reste",
+          "description": "Garder une étape en interne et confier le reste à un partenaire. L'investissement reste modéré et le gain sur le coût est partiel."
+        }
+      ]
+    },
+    {
+      "id": "mode_organisation",
+      "manche": "N1",
+      "titre": "Mode d'organisation",
+      "type": "stratégique",
+      "notion": "Structure organisationnelle, adéquation ressources / stratégie",
+      "jauge": "indicateur_societal",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Garder une équipe polyvalente réduite",
+          "description": "Ne recruter personne et garder une petite équipe qui touche à tout. La réactivité est maximale, mais l'équipe peut saturer si la charge est déjà élevée."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Créer des pôles et clarifier les rôles",
+          "description": "Organiser l'entreprise par pôles, en recrutant si besoin un profil opérationnel vite disponible. Les responsabilités se clarifient, la masse salariale augmente."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Recruter des profils experts",
+          "description": "Recruter des profils rares et spécialisés. Le coût est élevé et le délai long. Cela ne vaut que si l'expertise fait l'avantage de l'entreprise."
+        }
+      ]
+    },
+    {
+      "id": "modalite_croissance",
+      "manche": "N2",
+      "titre": "Modalité de croissance",
+      "type": "stratégique",
+      "notion": "Croissance interne, externe, conjointe",
+      "jauge": "sante_financiere",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Croître par ses propres moyens (croissance interne)",
+          "description": "Investir ses propres ressources : commerciaux, capacité, équipement. L'entreprise garde la maîtrise, mais la montée en puissance est progressive et mobilise la trésorerie."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Racheter un concurrent (croissance externe)",
+          "description": "Racheter une entreprise existante. La capacité et les compétences arrivent tout de suite, mais l'investissement est lourd et l'intégration reste à mener."
+        },
+        {
+          "lettre": "C",
+          "libelle": "S'allier à un partenaire (croissance conjointe)",
+          "description": "S'appuyer sur un partenaire : distribution, licence ou sous-traitance. L'investissement est faible et le déploiement rapide, mais il faut partager la valeur et accepter une dépendance."
+        }
+      ]
+    },
+    {
+      "id": "reaction_concurrentielle",
+      "manche": "N2",
+      "titre": "Réaction concurrentielle",
+      "type": "tactique",
+      "notion": "Stratégies génériques : coûts, différenciation, focalisation",
+      "jauge": "part_de_marche",
+      "duree_concertation_s": 60,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "S'aligner sur les prix",
+          "description": "Défendre ses volumes par le prix. N'est tenable que si la structure de coûts le permet."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Renforcer la valeur perçue",
+          "description": "Justifier son écart de prix par la qualité, le service, l'image. Exige une valeur réellement démontrable."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Se recentrer sur un segment protégé",
+          "description": "Se replier sur une clientèle peu sensible au prix. Renonce à une part du marché en échange d'une position défendable."
+        }
+      ]
+    },
+    {
+      "id": "strategie_domaine",
+      "manche": "N3",
+      "titre": "Stratégie de domaine",
+      "type": "stratégique",
+      "notion": "Spécialisation, recentrage, extension",
+      "jauge": "indicateur_societal",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Recentrer la gamme sur le produit principal",
+          "description": "Arrêter les références secondaires et concentrer tous les volumes sur le produit principal. La production se simplifie et les coûts baissent, mais la gamme se réduit."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Faire évoluer la gamme actuelle",
+          "description": "Modifier la gamme existante : monter en gamme, l'élargir ou la simplifier. Il faut un budget de développement et des compétences produit."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Ouvrir un segment de clientèle voisin",
+          "description": "Vendre à une clientèle proche, avec l'offre actuelle ou à peine adaptée. La base de clients s'élargit, mais l'effort commercial se disperse."
+        }
+      ]
+    },
+    {
+      "id": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "titre": "Adaptation conjoncturelle",
+      "type": "tactique",
+      "notion": "Élasticité-prix, valeur perçue, coût total de possession",
+      "jauge": "sante_financiere",
+      "duree_concertation_s": 60,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Baisser ses prix",
+          "description": "Capter les budgets restants sur un marché contraint. Érode la marge, n'a de sens que si la clientèle est sensible au prix."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Valoriser le coût total de possession",
+          "description": "Démontrer qu'un équipement durable coûte moins cher sur sa durée de vie. Exige une durabilité réellement supérieure et démontrable."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Réorienter l'effort commercial",
+          "description": "Concentrer les moyens sur les clientèles épargnées par la contraction. Suppose d'avoir accès à ces clientèles."
+        }
+      ]
+    },
+    {
+      "id": "politique_rse",
+      "manche": "N4",
+      "titre": "Politique RSE",
+      "type": "stratégique",
+      "notion": "Parties prenantes, contrainte ou opportunité, greenwashing",
+      "jauge": "indicateur_societal",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Refondre l'offre en écoconception",
+          "description": "Refondre l'offre autour de matériaux durables et organiser la fin de vie des produits. L'investissement est lourd, mais l'avantage dure si les clients le valorisent."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Se mettre en règle au coût le plus bas",
+          "description": "Atteindre le seuil réglementaire sans en faire un argument. La structure de coûts est préservée, l'image ne gagne rien."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Certifier et faire connaître l'existant",
+          "description": "Faire certifier une démarche déjà en place, puis la faire connaître. Le coût est faible, mais sans substance réelle, l'accusation de greenwashing tombe tout de suite."
+        }
+      ]
+    },
+    {
+      "id": "reponse_reglementaire",
+      "manche": "N4",
+      "titre": "Réponse réglementaire",
+      "type": "tactique",
+      "notion": "Internalisation ou externalisation d'une mise en conformité",
+      "jauge": "sante_financiere",
+      "duree_concertation_s": 60,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Se mettre en conformité en interne",
+          "description": "Mobiliser ses propres équipes. Démarche maîtrisée et crédible, exige la compétence et la disponibilité correspondantes."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Reporter la mise en conformité",
+          "description": "Attendre les décrets d'application. Préserve la trésorerie à court terme, expose à l'exclusion des marchés publics."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Externaliser la mise en conformité",
+          "description": "Confier l'adaptation à un partenaire ou un bureau d'études. Rapide et sans mobilisation interne, coût immédiat et dépendance technique."
+        }
+      ]
+    },
+    {
+      "id": "strategie_globale",
+      "manche": "N5",
+      "titre": "Stratégie globale",
+      "type": "stratégique",
+      "notion": "Périmètre d'activité, spécialisation ou diversification",
+      "jauge": "part_de_marche",
+      "duree_concertation_s": 600,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Diversifier",
+          "description": "Ouvrir un nouveau domaine d'activité. Répartit le risque et ouvre un relais de croissance, disperse les ressources et exige de nouvelles compétences."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Se spécialiser davantage",
+          "description": "Renforcer sa position sur son domaine actuel par l'excellence opérationnelle. Consolide les marges, expose à la dépendance à un seul marché."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Protéger son domaine",
+          "description": "Ériger des barrières à l'entrée (dépôts, certifications, exclusivités). Sécurise l'avantage acquis, sans effet direct sur la croissance."
+        }
+      ]
+    },
+    {
+      "id": "modele_perennite",
+      "manche": "N5",
+      "titre": "Modèle de pérennité",
+      "type": "tactique",
+      "notion": "Indépendance, alliance, croissance externe subie",
+      "jauge": "indicateur_societal",
+      "duree_concertation_s": 60,
+      "options": [
+        {
+          "lettre": "A",
+          "libelle": "Accepter le rachat",
+          "description": "Sécuriser la valeur créée et intégrer un groupe. Perte de l'indépendance et du contrôle du projet."
+        },
+        {
+          "lettre": "B",
+          "libelle": "Négocier un partenariat",
+          "description": "Accéder aux moyens du groupe en restant maître de son entreprise. Partage de la valeur, dépendance partielle."
+        },
+        {
+          "lettre": "C",
+          "libelle": "Refuser et rester indépendant",
+          "description": "Conserver la maîtrise totale. Suppose d'avoir les moyens d'affronter seul la suite."
+        }
+      ]
+    }
+  ],
+  "manches": [
+    {
+      "manche": "N1",
+      "titre": "Lancement (N1) · marché 2 000 K€",
+      "accroche": "Votre start-up vient de se lancer. Un plan national d'équipement ouvre le marché du mobilier scolaire : la demande est là, aucune position n'est encore acquise. Vous devez poser les fondations de votre entreprise.",
+      "evenement": null,
+      "decisions": [
+        "positionnement_marque",
+        "outil_production",
+        "mode_organisation"
+      ]
+    },
+    {
+      "manche": "N2",
+      "titre": "Croissance (N2) · marché 2 600 K€ (+30 %)",
+      "accroche": "Le marché s'emballe : les établissements s'équipent, les budgets sont ouverts. Toutes les start-up ont trouvé leurs premiers clients. C'est l'année où les positions se prennent.",
+      "evenement": {
+        "titre": "Nouveau concurrent",
+        "sous_titre": "Arrivée de SCOLEUROP",
+        "texte": "SCOLEUROP, groupe européen d'ameublement scolaire, s'implante en France. Il attaque à 71 € le bureau élève, soit 25 % sous le prix moyen du marché, avec un délai de livraison de 6 semaines.",
+        "effet": "Le marché grandit, mais SCOLEUROP en prend une part. Vos parts baissent toutes."
+      },
+      "decisions": [
+        "modalite_croissance",
+        "reaction_concurrentielle"
+      ]
+    },
+    {
+      "manche": "N3",
+      "titre": "Maturité 1 (N3) · marché 3 000 K€ (+15 %)",
+      "accroche": "La croissance ralentit. Les acheteurs comparent, négocient, arbitrent. Ce qui a été construit en N1 et N2 se paie ou se paye maintenant.",
+      "evenement": {
+        "titre": "Le budget des clients se resserre",
+        "sous_titre": "Gel des dotations publiques",
+        "texte": "L'État gèle une partie des dotations d'équipement. Les établissements publics reportent ou réduisent leurs commandes.",
+        "effet": "Les segments publics achètent moins. Le prix redevient un critère décisif."
+      },
+      "decisions": [
+        "strategie_domaine",
+        "adaptation_conjoncturelle"
+      ]
+    },
+    {
+      "manche": "N4",
+      "titre": "Maturité 2 (N4) · marché 3 200 K€ (+7 %)",
+      "accroche": "Le marché arrive à maturité. Les acheteurs deviennent exigeants sur autre chose que le prix : l'origine des matériaux entre dans les critères.",
+      "evenement": {
+        "titre": "Nouvelle réglementation",
+        "sous_titre": "Réglementation économie circulaire",
+        "texte": "La loi économie circulaire est adoptée : la commande publique impose désormais 30 % minimum de matériaux recyclés ou biosourcés.",
+        "effet": "Sans conformité, vous êtes exclus des marchés publics."
+      },
+      "decisions": [
+        "politique_rse",
+        "reponse_reglementaire"
+      ]
+    },
+    {
+      "manche": "N5",
+      "titre": "Maturité 3 (N5) · marché 3 300 K€ (+3 %)",
+      "accroche": "Dernier exercice. Le marché ne grandit presque plus. Ce qui compte désormais, c'est ce que vous avez construit et ce que vous saurez défendre.",
+      "evenement": {
+        "titre": "Un concurrent part, un autre copie",
+        "sous_titre": "SCOLEUROP se retire — et une copie apparaît",
+        "texte": "SCOLEUROP se retire du marché français et libère ses volumes. Au même moment, un nouvel entrant copie les offres les plus différenciantes du marché.",
+        "effet": "Des volumes se libèrent. Mais ce qui n'est pas protégé devient copiable."
+      },
+      "decisions": [
+        "strategie_globale",
+        "modele_perennite"
+      ]
+    }
+  ],
+  "resolution": [
+    {
+      "entreprise": "MOBISCO",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vendez au prix le plus bas du marché, sur le segment qui regarde d'abord le prix. Vous gagnez les appels d'offres. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous promettez de la qualité, mais personne ne sait concevoir chez vous. La promesse ne tient pas."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vendez une gamme standard en la présentant comme une expertise. Le discours ne convainc pas, mais il ne coûte rien."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous annoncez 165 € comme un prix accessible. Les acheteurs éliminent votre offre et vous sacrifiez votre marge pour rien."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos deux designers et vos 34,5 % de marge rendent la promesse crédible. Vous vendez votre positionnement premium. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre ergonomie peut passer pour une expertise. Mais face à un vrai spécialiste, votre légitimité manque."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous positionnez un produit à 195 € sur le prix. Vous perdez chaque appel d'offres et vous gâchez votre expertise."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre qualité est réelle, mais votre atout accessibilité reste invisible. Vos ventes restent moyennes."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous occupez un segment sans concurrent, avec 41 % de notoriété chez les prescripteurs. Vous prenez la position tout de suite. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous présentez un produit à 240 € comme accessible. L'incohérence saute aux yeux et vous ne gagnez aucun marché."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Le privé et le supérieur mettent 20 points sur l'innovation. Votre concept trouve ses premiers clients. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "positionnement_marque",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vous posez en spécialiste d'un usage encore confidentiel. Le marché est trop étroit pour couvrir vos charges."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous disposez déjà de 8 000 bureaux de capacité, pour un seuil de rentabilité à 5 625. Vous n'investissez pas un euro. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 320.0,
+      "phrase": "L'atelier coûte 320 K€. Vous ne mobilisez que 270 K€. Vous ne pouvez pas le financer."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 110.0,
+      "phrase": "Vous investissez 110 K€ pour gagner 7 € par bureau. Et personne chez vous ne sait piloter un atelier."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous prévoyez 2 400 bureaux pour une capacité de 3 000 et un seuil à 2 105. Vous n'avez rien à investir. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 280.0,
+      "phrase": "L'atelier coûte 280 K€. Vous mobilisez 240 K€. C'est hors de portée."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 130.0,
+      "phrase": "Vous payez 130 K€ pour 500 bureaux dont vous n'avez pas besoin. Et personne chez vous ne sait industrialiser."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 30.0,
+      "phrase": "Vous confiez votre certification accessibilité à un tiers. Vous perdez votre seul vrai atout et votre seuil monte à 2 872, pour 2 050 bureaux prévus."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 95.0,
+      "phrase": "Vous financez 95 K€ sans difficulté. Votre capacité monte à 3 200 et votre seuil descend à 1 849. Vous produisez plus et vous gardez la certification. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 15.0,
+      "phrase": "Vous perdez 13 € de marge par bureau et votre seuil monte à 2 500, au-dessus de vos 2 050 bureaux prévus. Vous gagnez de la capacité, vous perdez votre rentabilité."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 45.0,
+      "phrase": "Vous confiez à un tiers un produit dont le développement n'est pas fini. Votre seuil monte à 3 438 : même en signant vos 2 900 devis, vous n'y arrivez pas."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 85.0,
+      "phrase": "Vous avez les 85 K€. Mais la mise en route prend 7 mois et vous n'avez pas de chef d'atelier. La capacité arrivera trop tard."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "outil_production",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 20.0,
+      "phrase": "Vous investissez 20 K€ et votre capacité monte à 2 800, au-dessus de votre seuil de 2 538. Avec 2 900 devis en attente, vous devenez rentable. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous laissez 10 salariés sans encadrement sur une production en série. Vos process se dégradent."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 37.5,
+      "phrase": "Vous recrutez un commercial en 2 mois. Vos ventes rejoignent le seuil et les rôles se clarifient. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 29.17,
+      "phrase": "Vous payez un designer 50 K€ par an pour vendre du mobilier standard. Vous dépensez sans usage."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos 8 personnes sont polyvalentes et votre climat social atteint 8,4. Votre réactivité fait votre avantage : ne changez rien. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 30.0,
+      "phrase": "Vous ajoutez des niveaux à une équipe de 8 personnes. Vos coûts montent et votre agilité baisse."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 21.67,
+      "phrase": "Vous recrutez un designer pour 52 K€ par an et 7 mois d'attente, alors que deux sont déjà en poste."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre équipe travaille à 94 % de charge et 40 demandes ne sont pas traitées. Vos salariés s'épuisent et vos clients attendent."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 30.0,
+      "phrase": "Vous recrutez un chargé d'appels d'offres pour 40 K€ par an. Il ne traite pas les demandes de conseil : votre équipe reste saturée."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 19.33,
+      "phrase": "Vos experts recrutés absorbent la demande de conseil. Votre charge redescend. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous ne pouvez financer aucun recrutement. Votre équipe reste soudée et polyvalente, et votre trésorerie tient. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous structurez une équipe de 6 personnes. Vous ajoutez de l'administratif sans gagner en efficacité."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "mode_organisation",
+      "manche": "N1",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 41.25,
+      "phrase": "Vous recrutez avec 95 K€ en caisse et 180 K€ de développement à financer. Vous asphyxiez votre trésorerie."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 37.5,
+      "phrase": "Vous disposez de 8 000 bureaux de capacité. Chaque commercial recruté se transforme en ventes. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 85.0,
+      "phrase": "Vous payez 85 K€ pour une capacité que vous avez déjà. Vous immobilisez votre trésorerie."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 25.0,
+      "phrase": "Vous cédez 8 % de commission sur une marge de 20,5 %. Votre rentabilité s'effondre."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 75.0,
+      "phrase": "Vous recrutez des commerciaux, mais votre menuisier partenaire plafonne à 3 000 bureaux. Vos ventes butent sur la production."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 120.0,
+      "phrase": "Vous financez 120 K€ pour 1 500 bureaux de plus et 4 artisans qualifiés. Votre plafond de production saute. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 18.0,
+      "phrase": "Vous versez 10 % de commission à des prescripteurs pour une clientèle que vous avez déjà."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 95.0,
+      "phrase": "Vous investissez 95 K€ pour étendre votre atelier. Votre capacité suit la demande et vous gardez la maîtrise de votre certification. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 78.0,
+      "phrase": "Vous rachetez 3 menuisiers à former aux normes, avec une équipe déjà à 94 % de charge. Personne ne peut les encadrer."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 20.0,
+      "phrase": "Vous partez en Europe avant d'avoir saturé la France. Vous dispersez vos efforts et vous cédez 12 % de commission."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 75.0,
+      "phrase": "Vous payez 90 K€ par an de commerciaux alors que 2 900 bureaux attendent déjà un devis."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 105.0,
+      "phrase": "Le rachat coûte 105 K€. Vous avez 95 K€ et aucun emprunt possible. Vous ne pouvez pas le financer."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modalite_croissance",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 25.0,
+      "phrase": "Vous signez pour 25 K€ et 9 % de redevance. Votre plafond de production disparaît sans mobiliser un euro. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Au-delà de 7 000 bureaux, votre coût tombe à 56 €. Vous pouvez vous aligner à 71 € et rester rentable. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous n'avez aucun argument en dehors du prix sur des produits standards. Vos acheteurs partent chez SCOLEUROP."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous n'avez aucun segment protégé où vous replier. Vous reculez sans destination."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous ramenez un prix de 165 € vers 71 €. Vous détruisez votre marge et votre image premium en une seule décision."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos clients mettent 40 points sur la qualité et 28 sur le prix. Votre écart de prix se justifie. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vous repliez alors que votre clientèle n'est pas attaquée. Vous abandonnez des parts sans raison."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous baissez votre prix sur un segment qui n'achète pas au prix. Vous perdez votre marge pour rien."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous communiquez sur la valeur là où la conformité suffisait. Votre effort tombe à côté."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos budgets fléchés échappent à la guerre des prix. Votre position est imprenable. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous alignez un produit à 240 € sur un concurrent à 71 €. Vous détruisez votre marge et vous dévalorisez votre concept."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre produit n'a pas d'équivalent. Vous le défendez par la démonstration d'usage, pas par le prix. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reaction_concurrentielle",
+      "manche": "N2",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vous recentrez encore sur une base déjà étroite. Votre croissance s'étouffe."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 5.0,
+      "phrase": "Vous concentrez vos volumes sur le bureau élève. Vous franchissez le palier des 7 000 : votre coût tombe à 56 €, votre marge monte à 22 € et votre seuil descend à 4 091. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 95.0,
+      "phrase": "Vous montez en gamme avec une compétence conception à 0. Vous dépensez 95 K€ pour un produit que personne chez vous ne sait dessiner."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 40.0,
+      "phrase": "Vous payez 40 K€ pour la petite enfance. Vos prix passent, mais votre marge tombe à 14 € et vos 2 commerciaux se dispersent sur 12 % du marché."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 3.0,
+      "phrase": "Vous supprimez le bureau enseignant, votre référence à 100 € de marge. Votre gamme tombe à un seul produit et vos designers n'ont plus de terrain."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 75.0,
+      "phrase": "Vous investissez 75 K€ dans des bureaux réglables à 62 € de marge. Vos prototypes existent déjà et vos designers sont en place. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 45.0,
+      "phrase": "Vous payez 45 K€ pour le tertiaire, où votre marque est inconnue et vos 2 commerciaux sont déjà pris. Le marché existe, le canal non."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 3.0,
+      "phrase": "Vous supprimez le bureau enseignant adapté, votre référence à 120 € de marge. Vos prescripteurs équipent des salles entières, pas des élèves isolés."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 85.0,
+      "phrase": "Vous payez 85 K€ pour une gamme standard à 17 € de marge, contre 67 € aujourd'hui. Et vos concurrents produisent deux fois moins cher."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 48.0,
+      "phrase": "Vous investissez 48 K€ pour la petite enfance et les dispositifs ULIS, à 60 € de marge. Votre expertise se transpose telle quelle. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 3.0,
+      "phrase": "Vous supprimez le module cloison, à 130 € de marge. Or vous vendez des salles complètes : sans cloisons, votre offre n'existe plus."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 70.0,
+      "phrase": "Vous payez 70 K€ pour une gamme sans capteurs à 45 € de marge. Vous élargissez l'accès, mais vous diluez le concept qui fait votre valeur."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_domaine",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 35.0,
+      "phrase": "Vous investissez 35 K€ pour le supérieur et la formation, sans changer votre produit. Ces établissements vous demandent déjà des devis. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos acheteurs arbitrent au prix. Votre baisse capte les derniers budgets ouverts. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous n'avez aucune durabilité supérieure à démontrer. Votre argument tombe à plat et vous perdez des marchés."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Le privé ne connaît pas votre marque et ne cherche pas de produits standards. Votre effort se perd."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous sacrifiez 57 € de marge par bureau alors que votre clientèle n'est pas touchée par le gel."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre garantie 10 ans rassure des acheteurs sous contrainte : ils comparent le coût sur la durée. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous réorientez votre effort vers des clients que vous possédez déjà. L'effort ne produit rien."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous bradez sur des budgets fléchés qui sont seulement reportés. Vous perdez votre marge sans gagner un client."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous rassurez vos clients sur la durée. Les commandes reviennent dès que les budgets se débloquent. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous cherchez ailleurs alors que votre demande est seulement différée."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous baissez le prix d'un concept innovant avant son décollage. Vous détruisez sa valeur perçue."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre argument du mobilier réutilisable est juste, mais vos clients sont peu touchés par le gel."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "adaptation_conjoncturelle",
+      "manche": "N3",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Le supérieur et les organismes de formation échappent au gel. Votre effort trouve sa cible. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 145.0,
+      "phrase": "Vous dépensez 145 K€ d'écoconception sur une marge de 20,5 %. Vous devenez conforme, mais durablement affaibli."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 8.0,
+      "phrase": "Vous payez 8 K€ pour être conforme. Vos acheteurs exigent le seuil, pas l'exemplarité. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 12.0,
+      "phrase": "Vous présentez 6 % de matériaux recyclés comme une démarche. Vous n'êtes ni conforme, ni crédible."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 65.0,
+      "phrase": "Vous financez 65 K€ avec des designers déjà formés. Votre démarche devient un argument de vente. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 14.0,
+      "phrase": "Vous devenez conforme, mais vous laissez passer l'occasion de renforcer votre positionnement premium."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 10.0,
+      "phrase": "Vous présentez 18 % de biosourcés comme une démarche exemplaire. On vous accuse de greenwashing et votre image s'abîme."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 110.0,
+      "phrase": "Vous dépensez 110 K€ pour construire ce que votre atelier fait déjà. Vous asphyxiez votre trésorerie."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous restez discret alors que vous dépassez déjà le seuil. Vous gâchez un atout."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 14.0,
+      "phrase": "Vous payez 14 K€ pour certifier vos 34 % de biosourcés et les faire connaître. Votre démarche est réelle, elle devient enfin visible. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 125.0,
+      "phrase": "Vous engagez 125 K€ et 18 mois de refonte. Vos devis en attente partent ailleurs."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 30.0,
+      "phrase": "Vous payez 30 K€ pour adapter votre structure. Vous devenez conforme sans immobiliser votre équipe ni votre trésorerie. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "politique_rse",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 11.0,
+      "phrase": "Vous présentez 12 % de recyclés comme un engagement. Vous n'êtes pas conforme et vous perdez votre crédibilité."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 26.0,
+      "phrase": "Vous n'avez aucune compétence QSE et il vous faut 6 mois pour recruter. Votre conformité arrivera après l'échéance."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous êtes exclu des appels d'offres au moment précis où SCOLEUROP libère ses volumes."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 8.0,
+      "phrase": "Vous payez 8 K€ pour une solution clé en main chez votre fournisseur. Vous êtes conforme à temps et vous récupérez les marchés de SCOLEUROP. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos designers mènent l'adaptation. Vous maîtrisez votre conformité et vous restez cohérent avec votre marque. Bravo !"
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos universités clientes achètent par les marchés publics. Vous perdez leurs consultations."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 14.0,
+      "phrase": "Vous externalisez une démarche que vous revendiquez. Vous êtes conforme, mais votre discours perd sa force."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 5.0,
+      "phrase": "Vous payez 5 K€ d'audit et cela suffit : vous étiez déjà conforme. La preuve est établie. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous reportez une conformité que vous avez déjà. Vous vous excluez des marchés fléchés sans aucune raison."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 5.0,
+      "phrase": "Vous payez un tiers pour certifier ce que votre atelier maîtrise. La dépense est inutile."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre équipe R&D quitte l'avant-vente pour la conformité. Vous êtes conforme, mais vos devis attendent."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Les universités et les organismes publics vous deviennent inaccessibles. Votre décollage commercial s'arrête net."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "reponse_reglementaire",
+      "manche": "N4",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 30.0,
+      "phrase": "Vous confiez 30 K€ à un bureau d'études. Vous êtes conforme sans retirer un seul jour d'avant-vente. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "moyen",
+      "cout_k_eur": 70.0,
+      "phrase": "Vous engagez 70 K€ vers le tertiaire sans compétence de conception. Votre diversification est fragile."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous tenez sur la fiabilité, les délais et le SAV. Les communes renouvellent et votre position se consolide. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 6.0,
+      "phrase": "Vous déposez 6 K€ de modèles sur des produits standards. Vous ne protégez rien et vous perdez l'argent."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 45.0,
+      "phrase": "Vous partez vers le tertiaire alors que votre design signature n'est protégé par rien. Vous laissez votre seul avantage à découvert."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous consolidez sans protéger. N'importe quel concurrent peut copier votre design."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 38.0,
+      "phrase": "Vous déposez 12 K€ de modèles et vous signez 26 K€ d'exclusivité matériaux. Votre design signature devient défendable. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 60.0,
+      "phrase": "Vous engagez 60 K€ vers le tertiaire alors que rien ne protège votre expertise. Votre cœur de métier reste à découvert."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous améliorez l'existant sans verrouiller votre légitimité. N'importe qui peut se dire inclusif."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 16.0,
+      "phrase": "Vous payez 16 K€ pour un référentiel et des conventions avec les prescripteurs. Vos imitateurs sont disqualifiés. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 55.0,
+      "phrase": "Vous investissez 55 K€ pour un marché six fois plus grand, sans changer votre produit et avec vos brevets déjà déposés. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous restez sur le seul scolaire alors que le tertiaire vient à vous. Vous perdez votre relais de croissance."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "strategie_globale",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 22.0,
+      "phrase": "Vous payez 22 K€ pour étendre des brevets déjà déposés. Votre protection fait doublon."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous multipliez vos volumes par cinq et vous gardez votre site et vos emplois. À votre échelle, c'est la condition pour survivre. Bravo !"
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous nouez un partenariat sans gagner l'échelle. Vous restez exposé aux géants qui reviennent."
+    },
+    {
+      "entreprise": "MOBISCO",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous restez seul sur l'entrée de gamme face à des groupes conformes. Votre issue est condamnée."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos designers partent et votre clientèle premium fuit. Vous perdez vos deux actifs d'un coup."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous vous associez à un généraliste d'entrée de gamme. Votre image se brouille."
+    },
+    {
+      "entreprise": "LIGNEA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "bon",
+      "cout_k_eur": 0.0,
+      "phrase": "Votre marge finance votre indépendance. Votre équipe reste, votre clientèle aussi. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vos experts font votre légitimité et ils quittent l'entreprise. Votre actif disparaît avec eux."
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 20.0,
+      "phrase": "Vous payez 20 K€ pour ouvrir 6 pays. Vous gardez la conception et la certification à la maison. Bravo !"
+    },
+    {
+      "entreprise": "INCLUSIA",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "L'Europe reste fermée alors que votre niche nationale est saturée. Votre croissance s'arrête."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "A",
+      "verdict": "mauvais",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous cédez avant que le marché tertiaire ne soit valorisé. Vous bradez vos brevets et votre potentiel."
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "B",
+      "verdict": "bon",
+      "cout_k_eur": 25.0,
+      "phrase": "Votre goulot de production disparaît sans céder une part du capital ni un brevet. Bravo !"
+    },
+    {
+      "entreprise": "MODULAB",
+      "decision": "modele_perennite",
+      "manche": "N5",
+      "option": "C",
+      "verdict": "moyen",
+      "cout_k_eur": 0.0,
+      "phrase": "Vous gardez votre indépendance, mais vos délais de 5 mois font fuir vos clients."
+    }
+  ],
+  "recette": {
+    "score_chemin_optimal": {
+      "MOBISCO": 70.0,
+      "LIGNEA": 70.0,
+      "INCLUSIA": 70.0,
+      "MODULAB": 70.0
+    },
+    "chemins_au_sommet": {
+      "MOBISCO": 1,
+      "LIGNEA": 1,
+      "INCLUSIA": 1,
+      "MODULAB": 1
+    },
+    "reste_du_marche_si_tous_optimaux_pct": {
+      "N1": 7.4,
+      "N2": 10.6,
+      "N3": 9.7,
+      "N4": 6.6,
+      "N5": 3.9
+    },
+    "tresorerie_chemin_optimal_k_eur": {
+      "MOBISCO": {
+        "N1": 117,
+        "N2": 109,
+        "N3": 143,
+        "N4": 187,
+        "N5": 247,
+        "autonomie_finale_mois": 33
+      },
+      "LIGNEA": {
+        "N1": 130,
+        "N2": 90,
+        "N3": 136,
+        "N4": 234,
+        "N5": 378,
+        "autonomie_finale_mois": 38
+      },
+      "INCLUSIA": {
+        "N1": 70,
+        "N2": 137,
+        "N3": 190,
+        "N4": 301,
+        "N5": 406,
+        "autonomie_finale_mois": 36
+      },
+      "MODULAB": {
+        "N1": 105,
+        "N2": 130,
+        "N3": 161,
+        "N4": 210,
+        "N5": 282,
+        "autonomie_finale_mois": 21
+      }
+    },
+    "tresorerie_finale_mediane_par_nb_erreurs_k_eur": {
+      "MOBISCO": [
+        247,
+        187,
+        128,
+        55,
+        -32,
+        -94,
+        -285
+      ],
+      "LIGNEA": [
+        378,
+        300,
+        194,
+        112,
+        35,
+        -60,
+        -277
+      ],
+      "INCLUSIA": [
+        406,
+        298,
+        189,
+        94,
+        15,
+        -60,
+        -128
+      ],
+      "MODULAB": [
+        282,
+        218,
+        159,
+        99,
+        35,
+        -30,
+        -93
+      ]
+    },
+    "exposition_decouvert_pct": {
+      "MOBISCO": {
+        "11/11": 0,
+        "10/11": 4.5,
+        "9/11": 9.1,
+        "8/11": 15.3,
+        "7/11": 23.4
+      },
+      "LIGNEA": {
+        "11/11": 0,
+        "10/11": 4.5,
+        "9/11": 9.1,
+        "8/11": 13.9,
+        "7/11": 19.0
+      },
+      "INCLUSIA": {
+        "11/11": 0,
+        "10/11": 0,
+        "9/11": 0,
+        "8/11": 0.7,
+        "7/11": 4.4
+      },
+      "MODULAB": {
+        "11/11": 0,
+        "10/11": 0,
+        "9/11": 2.3,
+        "8/11": 9.4,
+        "7/11": 21.3
+      }
+    },
+    "ca_final_sans_faute_k_eur": 792,
+    "ca_final_toutes_erreurs_k_eur": 172
+  },
+  "anomalies_a_arbitrer": [],
+  "arbitrages_rendus": [
+    {
+      "id": "A1",
+      "objet": "Libellés de la décision « Stratégie de domaine »",
+      "decision": "Formulation du chapitre 6 retenue puis complétée. Les quatre fiches portent le mot « Recentrage ». « Enrichir l'offre » était faux pour INCLUSIA (gamme standard à 17 € de marge) et MODULAB (produit sans capteurs). « Étendre » entrait en collision avec la ligne « Extension de gamme » de la fiche LIGNEA, qui relève de l'option B."
+    },
+    {
+      "id": "A2",
+      "objet": "INCLUSIA · Politique RSE · option C",
+      "decision": "Coût maintenu à 14 K€ (audit 5 K€ + campagne de valorisation 9 K€, deux lignes de la fiche INCLUSIA). Phrase corrigée en conséquence."
+    },
+    {
+      "id": "A3",
+      "objet": "Libellés de la décision « Outil de production »",
+      "decision": "« Internaliser » remplacé par « Investir dans son propre atelier » : INCLUSIA et MODULAB possèdent déjà un atelier et l'agrandissent. « Solution intermédiaire » remplacé par « Produire une partie et sous-traiter le reste », qui couvre les trois formulations imprimées (hybride, sous-traitance partielle, sous-traitance de la structure)."
+    },
+    {
+      "id": "A4",
+      "objet": "INCLUSIA · Mode d'organisation · option B — erreur de fond",
+      "decision": "L'ancienne phrase annonçait « réorganiser sans recruter » alors que l'option coûte 30 K€, soit le chargé d'appels d'offres de la fiche INCLUSIA (40 K€/an, 3 mois, proratisé). Phrase corrigée : le profil recruté traite les appels d'offres, pas les demandes de conseil, donc la saturation demeure. Coût et verdict inchangés."
+    },
+    {
+      "id": "A5",
+      "objet": "Modèle rédactionnel unique",
+      "decision": "Les 132 phrases s'adressent désormais à l'équipe (« vous »), en sujet-verbe-complément et en vocabulaire de base. Les libellés d'options passent tous à l'infinitif. Les termes pédagogiques volontaires sont conservés (croissance interne / externe / conjointe, greenwashing, élasticité-prix). Aucun chiffre modifié."
+    }
+  ]
+}

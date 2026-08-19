@@ -3,8 +3,8 @@
   min-width: 220px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-md);
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
   background: var(--c-panel);
   border-radius: var(--radius);
   border-top: 5px solid var(--company-color);
@@ -36,20 +36,20 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.status-card__fin-row {
+.status-card__ligne {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   gap: var(--space-sm);
 }
 
-.status-card__fin-label {
+.status-card__cle {
   color: var(--c-text-muted);
   font-size: var(--fs-small);
   flex-shrink: 0;
 }
 
-.status-card__fin-value {
+.status-card__valeur {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: var(--c-text);
@@ -57,18 +57,15 @@
   text-align: right;
 }
 
-.status-card__fin-value.is-decouvert {
+/* Trésorerie négative : le chiffre suffit, pas d'icône d'alerte. */
+.status-card__ligne.is-negative .status-card__valeur,
+.status-card__ligne.is-negative .status-card__mention {
   color: var(--c-bad);
 }
 
-.status-card__fin-sub {
+.status-card__mention {
   font-weight: 400;
   font-size: var(--fs-small);
-  color: var(--c-text-muted);
-}
-
-.status-card__fin-sub--decouvert {
-  color: var(--c-bad);
 }
 
 .status-card__score {

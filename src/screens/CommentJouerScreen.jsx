@@ -1,38 +1,48 @@
 import Navigation from '../components/Navigation'
+import dataset from '../data/index.js'
 import './CommentJouerScreen.css'
 
-const COMPTEURS = [
-  { valeur: '5', label: 'manches' },
-  { valeur: '11', label: 'décisions en équipe' },
-  { valeur: '3', label: 'indicateurs à surveiller' },
+const ETAPES = [
+  'Le contexte de l’année',
+  'La décision et ses trois options',
+  'La concertation en équipe',
+  'L’annonce des réponses',
+  'Le verdict et ses conséquences',
+  'Le suivi des indicateurs',
 ]
 
+/** Slide d'ouverture : le déroulé d'une manche, les deux jauges, le score. */
 export default function CommentJouerScreen({ onPrev, onNext }) {
+  const { jauges } = dataset.raw
+  const [borneBasse, borneHaute] = jauges.bornes
+
   return (
-    <div className="screen comment-jouer-screen">
-      <h1>Comment jouer ?</h1>
+    <div className="screen comment-jouer">
+      <h1>Comment jouer&nbsp;?</h1>
 
-      <div className="comment-jouer-screen__compteurs">
-        {COMPTEURS.map((c) => (
-          <div key={c.label} className="comment-jouer-screen__compteur">
-            <span className="comment-jouer-screen__compteur-valeur">{c.valeur}</span>
-            <span className="comment-jouer-screen__compteur-label">{c.label}</span>
-          </div>
+      <ol className="comment-jouer__etapes">
+        {ETAPES.map((etape, i) => (
+          <li key={etape} className="comment-jouer__etape">
+            <span className="comment-jouer__num">{i + 1}</span>
+            <span className="comment-jouer__libelle">{etape}</span>
+          </li>
         ))}
-      </div>
+      </ol>
 
-      <div className="comment-jouer-screen__prose">
-        <p>
-          Vous êtes responsable d'un service : marketing, gestion opérationnelle ou ressources
-          humaines. Lisez attentivement votre fiche : elle contient des informations que vos
-          coéquipiers n'ont pas.
-        </p>
-        <p>Concertez-vous, croisez vos données, et choisissez ensemble la meilleure option.</p>
-        <p>
-          <strong>Votre mission :</strong> finir avec le meilleur score, en conciliant performance
-          économique, solidité financière et impact sociétal.
-        </p>
-        <p>Il n'existe pas de stratégie parfaite. À vous de construire la vôtre.</p>
+      <div className="comment-jouer__indicateurs">
+        <div className="comment-jouer__indicateur">
+          <span className="comment-jouer__cle">Santé financière</span>
+          <span className="comment-jouer__cle">Indicateur sociétal</span>
+          <span className="comment-jouer__detail">
+            de {borneBasse} à {borneHaute}, départ à {jauges.depart}, {jauges.pas} points par décision
+          </span>
+        </div>
+        <div className="comment-jouer__indicateur comment-jouer__indicateur--score">
+          <span className="comment-jouer__cle">Score</span>
+          <span className="comment-jouer__detail">
+            moitié part de marché, moitié vos deux jauges
+          </span>
+        </div>
       </div>
 
       <Navigation onPrev={onPrev} onNext={onNext} nextLabel="Commencer la manche 1" />

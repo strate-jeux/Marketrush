@@ -1,33 +1,50 @@
 import Gauge from './Gauge'
-import { formatKEUR, formatPct1, formatMonths } from '../engine/format'
+import { formatKEUR, formatPct, formatMois } from '../engine/format.js'
 import './StatusCard.css'
 
-/** Carte de suivi d'une entreprise : CA + trésorerie, 2 jauges officielles, score courant. */
-export default function StatusCard({ company, caPct, sante, societal, score, rank, tresorerie, runwayMois }) {
-  const enDecouvert = tresorerie < 0
+/**
+ * Carte de suivi d'une entreprise : part de marché, CA, trésorerie et autonomie,
+ * les deux jauges officielles, le score courant.
+ *
+ * `situation` est l'exercice clos le plus récent tel que le rend le moteur
+ * financier, ou `null` tant qu'aucune manche n'est entièrement jouée.
+ */
+export default function StatusCard({ company, partDeMarche, sante, societal, score, rank, situation }) {
+  const tresorerie = situation ? situation.tresorerie : company.tresorerie
+  const autonomie = situation ? situation.autonomieMois : (company.tresorerie / company.charges_fixes) * 12
+  const negative = tresorerie < 0
+  // Trésorerie dans le rouge : il ne reste aucun mois devant soi. « −33 mois »
+  // ne se dit pas à voix haute, on affiche 0. Le moteur, lui, garde la formule.
+  const autonomieAffichee = Math.max(0, autonomie)
+  // R4 puis R5 : on nomme la ligne réellement mobilisée.
+  const ligneMobilisee = !negative ? null : (situation && situation.decouvert > 0 ? 'découvert' : 'emprunt')
 
   return (
     <div className="status-card" style={{ '--company-color': company.couleur }}>
       <div className="status-card__head">
         {rank && <span className="status-card__rank">#{rank}</span>}
-        <h3 className="status-card__name">{company.nom}</h3>
+        <h3 className="status-card__name">{company.id}</h3>
       </div>
 
       <div className="status-card__finances">
-        <div className="status-card__fin-row">
-          <span className="status-card__fin-label">CA</span>
-          <span className="status-card__fin-value">
-            {formatKEUR(company.ca)} <span className="status-card__fin-sub">({formatPct1(caPct)})</span>
+        <div className="status-card__ligne">
+          <span className="status-card__cle">Chiffre d'affaires</span>
+          <span className="status-card__valeur">{formatKEUR(company.ca)}</span>
+        </div>
+        <div className="status-card__ligne">
+          <span className="status-card__cle">Part de marché</span>
+          <span className="status-card__valeur">{formatPct(partDeMarche)}</span>
+        </div>
+        <div className={`status-card__ligne ${negative ? 'is-negative' : ''}`}>
+          <span className="status-card__cle">Trésorerie</span>
+          <span className="status-card__valeur">
+            {formatKEUR(tresorerie)}
+            {ligneMobilisee && <span className="status-card__mention"> · {ligneMobilisee}</span>}
           </span>
         </div>
-        <div className="status-card__fin-row">
-          <span className="status-card__fin-label">Trésorerie</span>
-          <span className={`status-card__fin-value ${enDecouvert ? 'is-decouvert' : ''}`}>
-            {formatKEUR(tresorerie)}
-            {enDecouvert
-              ? <span className="status-card__fin-sub status-card__fin-sub--decouvert"> · découvert</span>
-              : <span className="status-card__fin-sub"> · {formatMonths(runwayMois)} d'autonomie</span>}
-          </span>
+        <div className={`status-card__ligne ${negative ? 'is-negative' : ''}`}>
+          <span className="status-card__cle">Autonomie</span>
+          <span className="status-card__valeur">{formatMois(autonomieAffichee)}</span>
         </div>
       </div>
 

@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { ranking } from '../engine/gameEngine'
-import { formatPct1 } from '../engine/format'
-import content from '../data/content.json'
+import { formatPct, formatEntier } from '../engine/format.js'
+import dataset from '../data/index.js'
 import './FinalScreen.css'
 
 export default function FinalScreen({ companies, onNewGame }) {
   const [confirming, setConfirming] = useState(false)
-  const rankedList = ranking(content, companies)
+  const rankedList = ranking(dataset, companies)
 
   return (
     <div className="screen final-screen">
@@ -15,9 +15,9 @@ export default function FinalScreen({ companies, onNewGame }) {
         {rankedList.map((c, i) => (
           <li key={c.id} className="final-screen__row" style={{ '--company-color': c.couleur }}>
             <span className="final-screen__pos">{i + 1}</span>
-            <span className="final-screen__name">{c.nom}</span>
+            <span className="final-screen__name">{c.id}</span>
             <span className="final-screen__detail">
-              Part relative {formatPct1(c.partRelative)} → indice {Math.round(c.indice)} · Santé
+              Part relative {formatPct(c.partRelative)} → indice {formatEntier(c.indice)} · Santé
               financière {Math.round(c.jauges.sante_financiere)} · Indicateur sociétal{' '}
               {Math.round(c.jauges.indicateur_societal)}
             </span>

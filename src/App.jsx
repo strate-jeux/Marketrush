@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import content from './data/content.json'
+import dataset from './data/index.js'
 import {
   buildScreenSequence,
-  decisionOrder,
   computeState,
 } from './engine/gameEngine'
 import { computeFinances } from './engine/financeEngine'
@@ -10,6 +9,7 @@ import { saveGame, loadGame, resetGame } from './engine/persistence'
 
 import GameChrome from './components/GameChrome'
 import RulesOverlay from './components/RulesOverlay'
+import ResetConfirmOverlay from './components/ResetConfirmOverlay'
 
 import TitleScreen from './screens/TitleScreen'
 import ScenarioScreen from './screens/ScenarioScreen'
@@ -23,15 +23,20 @@ import EventScreen from './screens/EventScreen'
 import SuiviScreen from './screens/SuiviScreen'
 import FinalScreen from './screens/FinalScreen'
 
-const sequence = buildScreenSequence(content)
-const order = decisionOrder(content)
-const manchesByNum = Object.fromEntries(content.manches.map((m) => [m.numero, m]))
+const sequence = buildScreenSequence(dataset)
+const order = dataset.decisionOrder
+
+// Identifie la forme de partie qui produit une sauvegarde : version des
+// données + séquence d'écrans. Change dès que l'une ou l'autre change, ce
+// qui invalide automatiquement toute sauvegarde devenue incohérente (cf.
+// engine/persistence.js).
+const sequenceFingerprint = `${dataset.raw.meta.version_donnees}::${sequence.map((s) => s.type).join(',')}`
 
 function findMancheForScreenIndex(index) {
   for (let i = index; i >= 0; i -= 1) {
-    if (sequence[i].manche) return manchesByNum[sequence[i].manche]
+    if (sequence[i].manche) return dataset.manchesByKey[sequence[i].manche]
   }
-  return content.manches[0]
+  return dataset.raw.manches[0]
 }
 
 export default function App() {
@@ -40,11 +45,12 @@ export default function App() {
   const [pendingChoices, setPendingChoices] = useState({})
   const [showRules, setShowRules] = useState(false)
   const [showSuivi, setShowSuivi] = useState(false)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   // Chargement initial depuis localStorage
   useEffect(() => {
-    const saved = loadGame()
+    const saved = loadGame(sequenceFingerprint)
     if (saved) {
       setHistory(saved.history)
       setScreenIndex(Math.min(saved.screenIndex, sequence.length - 1))
@@ -55,11 +61,11 @@ export default function App() {
   // Sauvegarde automatique à chaque changement d'écran ou de saisie
   useEffect(() => {
     if (!loaded) return
-    saveGame({ history, screenIndex })
+    saveGame({ history, screenIndex, fingerprint: sequenceFingerprint })
   }, [history, screenIndex, loaded])
 
-  const { companies, resultsByDecision } = useMemo(() => computeState(content, history), [history])
-  const finances = useMemo(() => computeFinances(content, history), [history])
+  const { companies, resultsByDecision } = useMemo(() => computeState(dataset, history), [history])
+  const finances = useMemo(() => computeFinances(dataset, history), [history])
 
   const screen = sequence[screenIndex]
 
@@ -93,6 +99,7 @@ export default function App() {
     resetGame()
     setHistory([])
     setScreenIndex(0)
+    setShowResetConfirm(false)
   }
 
   function toggleFullscreen() {
@@ -132,15 +139,20 @@ export default function App() {
           onShowRules={() => setShowRules(true)}
           onShowSuivi={() => setShowSuivi(true)}
           onToggleFullscreen={toggleFullscreen}
+          onRequestReset={() => setShowResetConfirm(true)}
         />
       )}
       {showRules && <RulesOverlay onClose={() => setShowRules(false)} />}
+      {showResetConfirm && (
+        <ResetConfirmOverlay onConfirm={handleNewGame} onCancel={() => setShowResetConfirm(false)} />
+      )}
       {showSuivi && (
         <SuiviScreen
           isModal
           companies={companies}
           finances={finances}
           manche={currentManche}
+          marcheKEUR={dataset.marcheByManche[currentManche.manche].marche_k_eur}
           onClose={() => setShowSuivi(false)}
         />
       )}
@@ -159,26 +171,30 @@ export default function App() {
         return <CommentJouerScreen onPrev={goPrev} onNext={goNext} />
 
       case 'manche-ouverture':
-        return <MancheOuvertureScreen manche={manchesByNum[screen.manche]} onPrev={goPrev} onNext={goNext} />
+        return (
+          <MancheOuvertureScreen
+            manche={dataset.manchesByKey[screen.manche]}
+            marche={dataset.marcheByManche[screen.manche]}
+            onPrev={goPrev}
+            onNext={goNext}
+          />
+        )
 
       case 'decision-presentation':
         return (
           <DecisionPresentationScreen
-            decision={content.decisions[screen.decisionId]}
+            decision={dataset.decisionsById[screen.decisionId]}
             onPrev={goPrev}
             onNext={goNext}
           />
         )
 
       case 'decision-reflexion': {
-        const decision = content.decisions[screen.decisionId]
-        const durationSec = decision.type === 'strategique'
-          ? content.parametres.minuteur_strategique_sec
-          : content.parametres.minuteur_tactique_sec
+        const decision = dataset.decisionsById[screen.decisionId]
         return (
           <DecisionReflexionScreen
             decision={decision}
-            durationSec={durationSec}
+            durationSec={decision.duree_concertation_s}
             onPrev={goPrev}
             onNext={goNext}
           />
@@ -188,7 +204,7 @@ export default function App() {
       case 'decision-saisie':
         return (
           <DecisionSaisieScreen
-            decision={content.decisions[screen.decisionId]}
+            decision={dataset.decisionsById[screen.decisionId]}
             choices={pendingChoices}
             onChoiceChange={(companyId, letter) =>
               setPendingChoices((c) => ({ ...c, [companyId]: letter }))
@@ -201,7 +217,7 @@ export default function App() {
       case 'decision-consequences':
         return (
           <DecisionConsequencesScreen
-            decision={content.decisions[screen.decisionId]}
+            decision={dataset.decisionsById[screen.decisionId]}
             results={resultsByDecision[screen.decisionId] || {}}
             onPrev={goPrev}
             onNext={goNext}
@@ -209,14 +225,15 @@ export default function App() {
         )
 
       case 'evenement':
-        return <EventScreen manche={manchesByNum[screen.manche]} onPrev={goPrev} onNext={goNext} />
+        return <EventScreen manche={dataset.manchesByKey[screen.manche]} onPrev={goPrev} onNext={goNext} />
 
       case 'suivi':
         return (
           <SuiviScreen
             companies={companies}
             finances={finances}
-            manche={manchesByNum[screen.manche]}
+            manche={dataset.manchesByKey[screen.manche]}
+            marcheKEUR={dataset.marcheByManche[screen.manche].marche_k_eur}
             onPrev={goPrev}
             onNext={goNext}
           />

@@ -1,6 +1,6 @@
 import './GameChrome.css'
 
-export default function GameChrome({ onShowRules, onShowSuivi, onToggleFullscreen }) {
+export default function GameChrome({ onShowRules, onShowSuivi, onToggleFullscreen, onRequestReset }) {
   return (
     <div className="game-chrome">
       <button type="button" className="game-chrome__btn" onClick={onShowSuivi} aria-label="Voir le suivi" title="Suivi (part de marché, jauges, score)">
@@ -11,6 +11,9 @@ export default function GameChrome({ onShowRules, onShowSuivi, onToggleFullscree
       </button>
       <button type="button" className="game-chrome__btn" onClick={onToggleFullscreen} aria-label="Plein écran" title="Plein écran (F)">
         ⛶
+      </button>
+      <button type="button" className="game-chrome__btn" onClick={onRequestReset} aria-label="Nouvelle partie" title="Nouvelle partie">
+        🔄
       </button>
     </div>
   )

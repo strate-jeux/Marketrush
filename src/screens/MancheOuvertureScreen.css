@@ -13,9 +13,18 @@
   font-size: var(--fs-h2);
   font-family: var(--font-title);
   font-weight: 500;
-  max-width: 22ch;
+  max-width: 40ch;
   line-height: 1.3;
   color: var(--c-text);
+}
+
+/* Quand le texte est révélé en plusieurs temps (TexteRevele rend un conteneur). */
+.manche-ouverture__accroche p {
+  margin: 0 0 0.5em;
+}
+
+.manche-ouverture__accroche p:last-child {
+  margin-bottom: 0;
 }
 
 .manche-ouverture__marche {

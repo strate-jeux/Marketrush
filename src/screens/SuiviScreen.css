@@ -1,13 +1,43 @@
+/* Tout l'écran de suivi doit tenir sans défilement : il est projeté.
+   Mise en page plus dense que le gabarit `.screen` par défaut. */
+/* `global.css` est émis après les feuilles de composants : à spécificité égale
+   `.screen` l'emporterait. On double la classe pour reprendre la main. */
+.screen.suivi-screen {
+  /* `flex: none` neutralise le `flex: 1` de `.screen`, sans quoi la hauteur
+     serait dictée par le contenu et la barre de navigation sortirait du cadre. */
+  flex: none;
+  height: 100vh;
+  padding: var(--space-md) var(--space-lg);
+  gap: var(--space-sm);
+  overflow: hidden;
+}
+
+.suivi-screen > h1 {
+  font-size: var(--fs-h2);
+}
+
+.suivi-screen .nav-bar {
+  flex: 0 0 auto;
+}
+
+/* Le camembert est seul sur la bande haute : c'est le visuel dominant.
+   Cette bande absorbe la place restante une fois les cartes servies. */
 .suivi-screen__top {
   display: flex;
   justify-content: center;
-  padding: var(--space-sm) 0;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .suivi-screen__cards {
   display: flex;
   gap: var(--space-md);
-  flex-wrap: wrap;
+  align-items: stretch;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .suivi-screen__cards { flex-wrap: wrap; }
 }
 
 .suivi-modal {

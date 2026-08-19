@@ -1,21 +1,24 @@
-// Formatage numérique unifié — virgule française partout (cf. brief §3.6).
+// Formatage numérique — séparateur décimal français partout (brief § 1).
 
-const intFormatter = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 })
-const oneDecimalFormatter = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+const entier = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 })
+const uneDecimale = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
 
-export function formatInt(value) {
-  return intFormatter.format(Math.round(value))
+/** Entier, séparateur de milliers français : 2 600 */
+export function formatEntier(valeur) {
+  return entier.format(Math.round(valeur))
 }
 
-export function formatKEUR(value) {
-  return `${formatInt(value)} K€`
+/** Montant en milliers d'euros : 247 K€ */
+export function formatKEUR(valeur) {
+  return `${formatEntier(valeur)} K€`
 }
 
-export function formatPct1(value) {
-  return `${oneDecimalFormatter.format(value)} %`
+/** Pourcentage à une décimale : 20,2 % */
+export function formatPct(valeur) {
+  return `${uneDecimale.format(valeur)} %`
 }
 
-export function formatMonths(value) {
-  const rounded = Math.round(value)
-  return `${formatInt(rounded)} mois`
+/** Autonomie : 33 mois */
+export function formatMois(valeur) {
+  return `${formatEntier(valeur)} mois`
 }

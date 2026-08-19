@@ -6,21 +6,18 @@
   background: var(--c-panel);
   border-radius: var(--radius);
   border-left: 6px solid var(--letter-color);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-  transition: opacity 350ms ease, transform 350ms ease;
-  transition-delay: var(--reveal-delay, 0ms);
+  transition: opacity var(--transition), transform var(--transition);
 }
 
 .option-card.is-hidden {
   opacity: 0;
-  transform: rotateY(-90deg);
+  transform: translateY(10px);
   pointer-events: none;
 }
 
 .option-card.is-visible {
   opacity: 1;
-  transform: rotateY(0deg);
+  transform: translateY(0);
 }
 
 .option-card__letter {
@@ -40,7 +37,14 @@
 }
 
 .option-card__desc {
-  margin: 0;
   font-size: var(--fs-body-lg);
   color: var(--c-text-muted);
+}
+
+.option-card__desc p {
+  margin: 0 0 0.4em;
+}
+
+.option-card__desc p:last-child {
+  margin-bottom: 0;
 }

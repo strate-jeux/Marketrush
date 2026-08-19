@@ -33,18 +33,6 @@
   color: var(--c-text-muted);
 }
 
-.conseq-card__ca-hero {
-  font-family: var(--font-title);
-  font-weight: 700;
-  font-size: var(--fs-hero);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.conseq-card--bon .conseq-card__ca-hero { color: var(--c-good); }
-.conseq-card--moyen .conseq-card__ca-hero { color: var(--c-medium); }
-.conseq-card--mauvais .conseq-card__ca-hero { color: var(--c-bad); }
-
 .conseq-card__option {
   font-family: var(--font-title);
   font-weight: 500;
@@ -53,10 +41,27 @@
 }
 
 .conseq-card__phrase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.conseq-card__temps {
+  margin: 0;
   color: var(--c-text-muted);
   font-size: var(--fs-body-lg);
-  margin: 0;
-  flex: 1;
+  animation: conseq-temps 250ms ease both;
+}
+
+/* Le constat porte la lecture ; les temps suivants la prolongent. */
+.conseq-card__temps--constat {
+  color: var(--c-text);
+}
+
+@keyframes conseq-temps {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .conseq-card__deltas {

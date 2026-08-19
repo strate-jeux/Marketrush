@@ -1,0 +1,60 @@
+.reset-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(1, 13, 31, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 110;
+  padding: var(--space-lg);
+}
+
+.reset-confirm-overlay__panel {
+  background: var(--c-panel);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.reset-confirm-overlay__panel p {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--fs-h3);
+  color: var(--c-text);
+}
+
+.reset-confirm-overlay__actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.reset-confirm-overlay__yes {
+  background: var(--c-bad);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-title);
+  font-weight: 600;
+}
+
+.reset-confirm-overlay__no {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--c-text-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-body);
+}
+
+.reset-confirm-overlay__no:hover {
+  color: var(--c-text);
+  border-color: rgba(255, 255, 255, 0.4);
+}

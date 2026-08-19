@@ -1,4 +1,4 @@
-import { formatPct1 } from '../engine/format'
+import { formatPct } from '../engine/format.js'
 import './PieChart.css'
 
 function polarPoint(cx, cy, r, angleDeg) {
@@ -31,7 +31,9 @@ export default function PieChart({ slices, size = 280 }) {
 
   return (
     <div className="piechart">
-      <svg viewBox={`0 0 ${size} ${size}`} width={size} height={size} className="piechart__svg">
+      {/* La taille d'affichage est pilotée en CSS : le camembert est le visuel
+          dominant de l'écran de suivi (~40 % de la hauteur, brief § 1). */}
+      <svg viewBox={`0 0 ${size} ${size}`} className="piechart__svg" role="img" aria-label="Parts de marché">
         {segments.map((s) => (
           <path key={s.id} d={s.path} fill={s.couleur} className="piechart__slice" />
         ))}
@@ -41,7 +43,7 @@ export default function PieChart({ slices, size = 280 }) {
           <li key={s.id} className="piechart__legend-item">
             <span className="piechart__swatch" style={{ background: s.couleur }} />
             <span className="piechart__legend-label">{s.label}</span>
-            <span className="piechart__legend-pct">{formatPct1(s.pct)}</span>
+            <span className="piechart__legend-pct">{formatPct(s.pct)}</span>
           </li>
         ))}
       </ul>
