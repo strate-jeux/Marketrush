@@ -9,6 +9,7 @@ import { saveGame, loadGame, resetGame } from './engine/persistence'
 
 import GameChrome from './components/GameChrome'
 import RulesOverlay from './components/RulesOverlay'
+import ResetConfirmOverlay from './components/ResetConfirmOverlay'
 
 import TitleScreen from './screens/TitleScreen'
 import ScenarioScreen from './screens/ScenarioScreen'
@@ -25,6 +26,12 @@ import FinalScreen from './screens/FinalScreen'
 const sequence = buildScreenSequence(dataset)
 const order = dataset.decisionOrder
 
+// Identifie la forme de partie qui produit une sauvegarde : version des
+// données + séquence d'écrans. Change dès que l'une ou l'autre change, ce
+// qui invalide automatiquement toute sauvegarde devenue incohérente (cf.
+// engine/persistence.js).
+const sequenceFingerprint = `${dataset.raw.meta.version_donnees}::${sequence.map((s) => s.type).join(',')}`
+
 function findMancheForScreenIndex(index) {
   for (let i = index; i >= 0; i -= 1) {
     if (sequence[i].manche) return dataset.manchesByKey[sequence[i].manche]
@@ -38,11 +45,12 @@ export default function App() {
   const [pendingChoices, setPendingChoices] = useState({})
   const [showRules, setShowRules] = useState(false)
   const [showSuivi, setShowSuivi] = useState(false)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   // Chargement initial depuis localStorage
   useEffect(() => {
-    const saved = loadGame()
+    const saved = loadGame(sequenceFingerprint)
     if (saved) {
       setHistory(saved.history)
       setScreenIndex(Math.min(saved.screenIndex, sequence.length - 1))
@@ -53,7 +61,7 @@ export default function App() {
   // Sauvegarde automatique à chaque changement d'écran ou de saisie
   useEffect(() => {
     if (!loaded) return
-    saveGame({ history, screenIndex })
+    saveGame({ history, screenIndex, fingerprint: sequenceFingerprint })
   }, [history, screenIndex, loaded])
 
   const { companies, resultsByDecision } = useMemo(() => computeState(dataset, history), [history])
@@ -91,6 +99,7 @@ export default function App() {
     resetGame()
     setHistory([])
     setScreenIndex(0)
+    setShowResetConfirm(false)
   }
 
   function toggleFullscreen() {
@@ -130,9 +139,13 @@ export default function App() {
           onShowRules={() => setShowRules(true)}
           onShowSuivi={() => setShowSuivi(true)}
           onToggleFullscreen={toggleFullscreen}
+          onRequestReset={() => setShowResetConfirm(true)}
         />
       )}
       {showRules && <RulesOverlay onClose={() => setShowRules(false)} />}
+      {showResetConfirm && (
+        <ResetConfirmOverlay onConfirm={handleNewGame} onCancel={() => setShowResetConfirm(false)} />
+      )}
       {showSuivi && (
         <SuiviScreen
           isModal
