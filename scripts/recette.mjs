@@ -175,24 +175,5 @@ console.log(`   jauges dans [${ampMin}, ${ampMax}]  ${ligne(jaugesOk)}`)
   console.log(`   R4/R5/R6 : dette ≤ capacité, découvert ≤ 50 % du CA, solde ≥ −(capacité + plafond)  ${ligne(r6)}`)
 }
 
-/* ---- Instruction des deux cellules T3 divergentes ---- */
-console.log('\nInstruction des écarts T3 (cohérence interne de la table de recette)')
-for (const [id, mancheCible] of [['MODULAB', 'N1'], ['LIGNEA', 'N4']]) {
-  const p = fin[id].parManche
-  const i = p.findIndex((x) => x.manche === mancheCible)
-  const exp = recette.tresorerie_chemin_optimal_k_eur[id]
-  const calc = p[i].tresorerie
-  const attendu = exp[mancheCible]
-  console.log(`   ${id} ${mancheCible} : calculé ${calc.toFixed(4)} (→ ${Math.round(calc)}), table ${attendu}`)
-  // On rejoue les manches suivantes en partant de la valeur de la table.
-  let t = attendu
-  const suite = []
-  for (let j = i + 1; j < p.length; j++) {
-    t += p[j].tresorerie - p[j - 1].tresorerie
-    suite.push(`${p[j].manche}=${Math.round(t)} (table ${exp[p[j].manche]})${Math.round(t) === exp[p[j].manche] ? '' : '  <-- CONTRADICTION'}`)
-  }
-  console.log(`      en partant de ${attendu} : ${suite.join(' | ')}`)
-}
-
-console.log(`\n===== ${echecs === 0 ? 'RECETTE LOT 2 : TOUT PASSE' : `RECETTE LOT 2 : ${echecs} ECART(S) SUR T3`} =====`)
+console.log(`\n===== ${echecs === 0 ? 'RECETTE : TOUT PASSE' : `RECETTE : ${echecs} ECART(S)`} =====`)
 process.exit(echecs === 0 ? 0 : 1)
